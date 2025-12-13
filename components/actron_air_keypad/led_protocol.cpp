@@ -91,7 +91,6 @@ float LedProtocol::get_display_value() {
 void LedProtocol::mloop() {
   unsigned long now = micros();
   if (do_work_) {
-    ESP_LOGD(TAG, "Processing data");
     do_work_ = 0;
     last_work_ = now;
 
@@ -100,7 +99,6 @@ void LedProtocol::mloop() {
 
   unsigned long dt = now - last_work_;
   if (dt > 40000 && nlow_) {
-    ESP_LOGD(TAG, "Finalizing data");
     nbits_ = nlow_;
     nlow_ = 0;
     if (nbits_ == 40 && !data_error_) {

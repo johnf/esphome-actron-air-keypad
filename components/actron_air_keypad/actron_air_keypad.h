@@ -38,7 +38,7 @@ public:
   void set_fan_cont_sensor(binary_sensor::BinarySensor *sensor) {
     this->fan_cont_ = sensor;
   }
-  void set_fan_hi_sensor(binary_sensor::BinarySensor *sensor) {
+  void set_fan_high_sensor(binary_sensor::BinarySensor *sensor) {
     this->fan_high_ = sensor;
   }
   void set_fan_mid_sensor(binary_sensor::BinarySensor *sensor) {

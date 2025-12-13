@@ -59,7 +59,7 @@ public:
 
   float get_display_value();
   void mloop();
-  void IRAM_ATTR handle_interrupt();
+  void handle_interrupt();
 
 private:
   unsigned long last_intr_us_{0};

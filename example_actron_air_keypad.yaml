@@ -186,7 +186,7 @@ switch:
           id(dac_value)=id(voltage_power);
           id(press_button).press();
     lambda: |-
-      return (id(cool).state or id(auto_mode).state or id(heat).state or id(fan_cont).state or id(fan_hi).state or id(fan_mid).state or id(fan_low).state);
+      return (id(cool).state or id(auto_mode).state or id(heat).state or id(fan_cont).state or id(fan_high).state or id(fan_mid).state or id(fan_low).state);
 
   - platform: template
     name: "Zone 1"
@@ -262,13 +262,13 @@ text_sensor:
     update_interval: 1s
     lambda: |-
       std::string current_fan = "";
-      if (id(fan_hi).state and !id(fan_cont).state) {
+      if (id(fan_high).state and !id(fan_cont).state) {
         current_fan="High";
       } else if (id(fan_mid).state and !id(fan_cont).state) {
         current_fan="Medium";
       } else if (id(fan_low).state and !id(fan_cont).state) {
         current_fan="Low";
-      } else if (id(fan_hi).state and id(fan_cont).state) {
+      } else if (id(fan_high).state and id(fan_cont).state) {
         current_fan="High Cont";
       } else if (id(fan_mid).state and id(fan_cont).state) {
         current_fan="Medium Cont";

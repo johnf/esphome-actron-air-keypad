@@ -186,7 +186,7 @@ switch:
           id(dac_value)=id(voltage_power);
           id(press_button).press();
     lambda: |-
-      return (id(cool).state or id(auto).state or id(heat).state or id(fan_cont).state or id(fan_hi).state or id(fan_mid).state or id(fan_low).state);
+      return (id(cool).state or id(auto_mode).state or id(heat).state or id(fan_cont).state or id(fan_hi).state or id(fan_mid).state or id(fan_low).state);
 
   - platform: template
     name: "Zone 1"
@@ -231,17 +231,16 @@ switch:
     lambda: return id(zone3).state;
 
 external_components:
-  - source: github.com://johnf/esphome-actron-air-keypad
+  - source: github://johnf/esphome-actron-air-keypad
     components: [actron_air_keypad]
 
 actron_air_keypad:
-  id: actron_air_keypad
+  id: actron_air_keypad_1
   pin: GPIO33
 
 # Sensors from keypad status component
 sensor:
   - platform: actron_air_keypad
-    actron_air_keypad_id: actron_air_keypad_id
     setpoint_temp:
       name: "Setpoint Temperature"
       id: setpoint_temp
@@ -253,7 +252,6 @@ sensor:
 # Text sensors from keypad status component
 text_sensor:
   - platform: actron_air_keypad
-    actron_air_keypad_id: actron_air_keypad_id
     bit_string:
       name: "Bit String"
       id: bit_string
@@ -288,37 +286,17 @@ text_sensor:
 # Binary sensors from keypad status component
 binary_sensor:
   - platform: actron_air_keypad
-    actron_air_keypad_id: actron_air_keypad_id
-    heat:
-      name: "Heat"
-      icon: mdi:fire
-      id: heat
-    cool:
-      name: "Cool"
-      icon: mdi:snowflake
-      id: cool
-    auto:
-      name: "Auto"
-      icon: mdi:flash-auto
-      id: auto
-    run:
-      name: "Run"
-      icon: mdi:run
-      id: run
-    inside:
-      name: "inside"
-      id: inside
-    timer:
-      name: "timer"
-      id: timer
+    room:
+      name: "Room"
+      id: room
     fan_cont:
       name: "Fan Continuous"
       icon: mdi:fan-chevron-up
       id: fan_cont
-    fan_hi:
-      name: "Fan Hi"
+    fan_high:
+      name: "Fan High"
       icon: mdi:fan-speed-3
-      id: fan_hi
+      id: fan_high
     fan_mid:
       name: "Fan Mid"
       icon: mdi:fan-speed-2
@@ -327,6 +305,28 @@ binary_sensor:
       name: "Fan Low"
       icon: mdi:fan-speed-1
       id: fan_low
+    cool:
+      name: "Cool"
+      icon: mdi:snowflake
+      id: cool
+    auto_mode:
+      name: "Auto"
+      icon: mdi:flash-auto
+      id: auto_mode
+    heat:
+      name: "Heat"
+      icon: mdi:fire
+      id: heat
+    run:
+      name: "Run"
+      icon: mdi:run
+      id: run
+    timer:
+      name: "timer"
+      id: timer
+    filter:
+      name: "Filter"
+      id: filter
     zone1:
       name: "Zone Bedrooms"
       id: zone1
@@ -355,7 +355,7 @@ binary_sensor:
       name: "Zone 7"
       id: zone7
       icon: mdi:alert
-    zone8:
-      name: "Zone 8"
-      id: zone8
-      icon: mdi:alert
+    # zone8:
+    #   name: "Zone 8"
+    #   id: zone8
+    #   icon: mdi:alert

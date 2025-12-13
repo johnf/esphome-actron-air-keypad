@@ -61,8 +61,8 @@ void ActronAirKeypad::loop() {
     if (this->cool_ != nullptr) {
       this->cool_->publish_state(ledProto.p[LedProtocol::COOL] != 0);
     }
-    if (this->auto_ != nullptr) {
-      this->auto_->publish_state(ledProto.p[LedProtocol::AUTO] != 0);
+    if (this->auto_mode_ != nullptr) {
+      this->auto_mode_->publish_state(ledProto.p[LedProtocol::AUTO_MODE] != 0);
     }
     if (this->heat_ != nullptr) {
       this->heat_->publish_state(ledProto.p[LedProtocol::HEAT] != 0);

@@ -50,8 +50,8 @@ public:
   void set_cool_sensor(binary_sensor::BinarySensor *sensor) {
     this->cool_ = sensor;
   }
-  void set_auto_sensor(binary_sensor::BinarySensor *sensor) {
-    this->auto_ = sensor;
+  void set_auto_mode_sensor(binary_sensor::BinarySensor *sensor) {
+    this->auto_mode_ = sensor;
   }
   void set_heat_sensor(binary_sensor::BinarySensor *sensor) {
     this->heat_ = sensor;
@@ -106,16 +106,16 @@ protected:
   binary_sensor::BinarySensor *fan_mid_{nullptr};
   binary_sensor::BinarySensor *fan_low_{nullptr};
   binary_sensor::BinarySensor *cool_{nullptr};
-  binary_sensor::BinarySensor *auto_{nullptr};
+  binary_sensor::BinarySensor *auto_mode_{nullptr};
   binary_sensor::BinarySensor *heat_{nullptr};
   binary_sensor::BinarySensor *run_{nullptr};
   binary_sensor::BinarySensor *timer_{nullptr};
   binary_sensor::BinarySensor *filter_{nullptr};
+  binary_sensor::BinarySensor *zone1_{nullptr};
   binary_sensor::BinarySensor *zone2_{nullptr};
   binary_sensor::BinarySensor *zone3_{nullptr};
   binary_sensor::BinarySensor *zone4_{nullptr};
   binary_sensor::BinarySensor *zone5_{nullptr};
-  binary_sensor::BinarySensor *zone1_{nullptr};
   binary_sensor::BinarySensor *zone6_{nullptr};
   binary_sensor::BinarySensor *zone7_{nullptr};
   binary_sensor::BinarySensor *zone8_{nullptr};

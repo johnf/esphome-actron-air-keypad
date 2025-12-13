@@ -12,7 +12,7 @@ class LedProtocol {
 public:
   enum ClassStatLeds {
     COOL = 0,
-    AUTO = 1,
+    AUTO_MODE = 1,
     ZONE5 = 2,
     RUN = 3,
     ROOM = 4,

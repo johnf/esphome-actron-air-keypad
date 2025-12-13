@@ -14,7 +14,7 @@ CONF_FAN_HIGH = "fan_high"
 CONF_FAN_MID = "fan_mid"
 CONF_FAN_LOW = "fan_low"
 CONF_COOL = "cool"
-CONF_AUTO = "auto"
+CONF_AUTO_MODE = "auto_mode"
 CONF_HEAT = "heat"
 CONF_RUN = "run"
 CONF_TIMER = "timer"
@@ -37,7 +37,7 @@ CONFIG_SCHEMA = cv.Schema(
         cv.Optional(CONF_FAN_MID): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_FAN_LOW): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_COOL): binary_sensor.binary_sensor_schema(),
-        cv.Optional(CONF_AUTO): binary_sensor.binary_sensor_schema(),
+        cv.Optional(CONF_AUTO_MODE): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_HEAT): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_RUN): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_TIMER): binary_sensor.binary_sensor_schema(),
@@ -81,9 +81,9 @@ async def to_code(config):
         sens = await binary_sensor.new_binary_sensor(config[CONF_COOL])
         cg.add(parent.set_cool_sensor(sens))
 
-    if CONF_AUTO in config:
-        sens = await binary_sensor.new_binary_sensor(config[CONF_AUTO])
-        cg.add(parent.set_auto_sensor(sens))
+    if CONF_AUTO_MODE in config:
+        sens = await binary_sensor.new_binary_sensor(config[CONF_AUTO_MODE])
+        cg.add(parent.set_auto_mode_sensor(sens))
 
     if CONF_HEAT in config:
         sens = await binary_sensor.new_binary_sensor(config[CONF_HEAT])

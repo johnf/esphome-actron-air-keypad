@@ -36,8 +36,6 @@ void IRAM_ATTR LedProtocol::handle_interrupt() {
     if (count < UINT32_MAX) {
       error_count_ = count + 1;
     }
-
-    return;
   }
 
   pulse_vec_[num_low_pulses_] = delta_us < timing::PULSE_THRESHOLD_US;

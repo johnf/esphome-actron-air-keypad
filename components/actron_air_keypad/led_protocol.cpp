@@ -70,7 +70,8 @@ void LedProtocol::main_loop() {
         std::memcpy(pulses_.data(), vec, NPULSE);
       }
     } else {
-      ESP_LOGD(TAG, "Only %u bits received (or data error)", num_low_pulses_);
+      ESP_LOGD(TAG, "Only %u bits received (or data error: %u)",
+               num_low_pulses_, has_data_error_ ? 1 : 0);
     }
 
     num_low_pulses_ = 0;
@@ -89,18 +90,18 @@ static constexpr struct {
   uint8_t pattern;
   char digit;
 } SEGMENT_MAP[] = {
-    {0x3F, '0'},  // ABCDEF
-    {0x06, '1'},  // BC
-    {0x5B, '2'},  // ABDEG
-    {0x4F, '3'},  // ABCDG
-    {0x66, '4'},  // BCFG
-    {0x6D, '5'},  // ACDFG
-    {0x7C, '6'},  // CDEFG (some displays omit A)
-    {0x07, '7'},  // ABC
-    {0x7F, '8'},  // ABCDEFG
-    {0x67, '9'},  // ABCFG (some displays include D)
-    {0x73, 'P'},  // ABEFG
-    {0x79, 'E'},  // ADEFG
+    {0x3F, '0'}, // ABCDEF
+    {0x06, '1'}, // BC
+    {0x5B, '2'}, // ABDEG
+    {0x4F, '3'}, // ABCDG
+    {0x66, '4'}, // BCFG
+    {0x6D, '5'}, // ACDFG
+    {0x7C, '6'}, // CDEFG (some displays omit A)
+    {0x07, '7'}, // ABC
+    {0x7F, '8'}, // ABCDEFG
+    {0x67, '9'}, // ABCFG (some displays include D)
+    {0x73, 'P'}, // ABEFG
+    {0x79, 'E'}, // ADEFG
 };
 
 char LedProtocol::decode_digit(uint8_t segment_bits) {
@@ -117,24 +118,24 @@ uint8_t LedProtocol::extract_digit_bits(LedIndex a, LedIndex b, LedIndex c,
                                         LedIndex d, LedIndex e, LedIndex f,
                                         LedIndex g) const {
   // Extract each segment bit and combine into GFEDCBA pattern
-  return static_cast<uint8_t>(
-      (get_pulse(g) << 6) | (get_pulse(f) << 5) | (get_pulse(e) << 4) |
-      (get_pulse(d) << 3) | (get_pulse(c) << 2) | (get_pulse(b) << 1) |
-      get_pulse(a));
+  return static_cast<uint8_t>((get_pulse(g) << 6) | (get_pulse(f) << 5) |
+                              (get_pulse(e) << 4) | (get_pulse(d) << 3) |
+                              (get_pulse(c) << 2) | (get_pulse(b) << 1) |
+                              get_pulse(a));
 }
 
 float LedProtocol::get_display_value() const {
   using L = LedIndex;
 
-  uint8_t digit1_bits = extract_digit_bits(L::DIGIT1_A, L::DIGIT1_B, L::DIGIT1_C,
-                                           L::DIGIT1_D, L::DIGIT1_E, L::DIGIT1_F,
-                                           L::DIGIT1_G);
-  uint8_t digit2_bits = extract_digit_bits(L::DIGIT2_A, L::DIGIT2_B, L::DIGIT2_C,
-                                           L::DIGIT2_D, L::DIGIT2_E, L::DIGIT2_F,
-                                           L::DIGIT2_G);
-  uint8_t digit3_bits = extract_digit_bits(L::DIGIT3_A, L::DIGIT3_B, L::DIGIT3_C,
-                                           L::DIGIT3_D, L::DIGIT3_E, L::DIGIT3_F,
-                                           L::DIGIT3_G);
+  uint8_t digit1_bits =
+      extract_digit_bits(L::DIGIT1_A, L::DIGIT1_B, L::DIGIT1_C, L::DIGIT1_D,
+                         L::DIGIT1_E, L::DIGIT1_F, L::DIGIT1_G);
+  uint8_t digit2_bits =
+      extract_digit_bits(L::DIGIT2_A, L::DIGIT2_B, L::DIGIT2_C, L::DIGIT2_D,
+                         L::DIGIT2_E, L::DIGIT2_F, L::DIGIT2_G);
+  uint8_t digit3_bits =
+      extract_digit_bits(L::DIGIT3_A, L::DIGIT3_B, L::DIGIT3_C, L::DIGIT3_D,
+                         L::DIGIT3_E, L::DIGIT3_F, L::DIGIT3_G);
 
   char c1 = decode_digit(digit1_bits);
   char c2 = decode_digit(digit2_bits);

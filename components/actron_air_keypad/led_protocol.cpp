@@ -68,8 +68,8 @@ void LedProtocol::main_loop() {
         std::memcpy(pulses_.data(), vec, NPULSE);
       }
     } else {
-      ESP_LOGD(TAG, "Only %u bits received (or data error: %u)",
-               num_low_pulses_, has_data_error_ ? 1 : 0);
+      ESP_LOGVV(TAG, "Only %u bits received (or data error: %u)",
+                num_low_pulses_, has_data_error_ ? 1 : 0);
     }
 
     num_low_pulses_ = 0;

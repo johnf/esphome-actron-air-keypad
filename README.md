@@ -24,34 +24,6 @@ to build the hardware.
 
 ## 🚀 Installation
 
-### Method 1: Local Component (Recommended for Development)
-
-Place the `components` directory in your ESPHome configuration directory:
-
-```text
-esphome/
-  components/
-    actron_air_keypad/
-      __init__.py
-      keypad.h
-      keypad.cpp
-      sensor.py
-      binary_sensor.py
-      text_sensor.py
-  your-device.yaml
-```
-
-Then in your YAML:
-
-```yaml
-external_components:
-  - source:
-      type: local
-      path: components
-```
-
-### Method 2: Git Repository
-
 ```yaml
 external_components:
   - source:

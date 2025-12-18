@@ -13,10 +13,8 @@ ESPHome external component that decodes pulse trains from Actron Air keypad disp
 ```
 components/actron_air_keypad/
 ├── __init__.py           # ESPHome component registration and config schema
-├── actron_air_keypad.h   # Main component class header
-├── actron_air_keypad.cpp # Component implementation (ISR, sensor publishing)
-├── led_protocol.h        # Protocol decoder header (bit definitions, timing)
-├── led_protocol.cpp      # Protocol decoder (frame parsing, 7-segment decoding)
+├── actron_air_keypad.h   # Main component class (protocol, timing, enums)
+├── actron_air_keypad.cpp # Component implementation (ISR, decoding, publishing)
 ├── sensor.py             # Numeric sensor platform (setpoint_temp, error_count)
 ├── binary_sensor.py      # Binary sensor platform (18 sensors: modes, fans, zones)
 └── text_sensor.py        # Text sensor platform (bit_string for debugging)
@@ -25,12 +23,12 @@ components/actron_air_keypad/
 ### Data Flow
 
 ```
-GPIO Pin → ISR (handle_interrupt) → LedProtocol → Main Loop → Publish to Sensors
+GPIO Pin → ISR (handle_interrupt) → Main Loop → Publish to Sensors
 ```
 
 1. Hardware interrupt captures falling edges on GPIO pin
-2. `LedProtocol` measures pulse timing to decode 0/1 bits
-3. 40-bit frames are assembled and validated
+2. ISR measures pulse timing to decode 0/1 bits into volatile buffer
+3. 40-bit frames are assembled and validated in `loop()`
 4. `ActronAirKeypad::loop()` publishes decoded data to ESPHome sensors
 
 ### Python-C++ Integration
@@ -47,10 +45,9 @@ GPIO Pin → ISR (handle_interrupt) → LedProtocol → Main Loop → Publish to
 - **Bit threshold:** 1ms (shorter = 0, longer = 1)
 - **Update rate:** ~200ms between frames
 
-### Key Classes
+### Key Class
 
-- `ActronAirKeypad` (actron_air_keypad.h) - ESPHome Component, manages ISR and sensors
-- `LedProtocol` (led_protocol.h) - Decodes pulse timing into bit array and extracts values
+- `ActronAirKeypad` (actron_air_keypad.h) - ESPHome Component handling ISR, protocol decoding, and sensor publishing
 
 ## Available Sensors
 
@@ -65,3 +62,7 @@ GPIO Pin → ISR (handle_interrupt) → LedProtocol → Main Loop → Publish to
 - ESP32 with ESP-IDF framework
 - Python 3.13+
 - ESPHome >= 2025.11.5
+
+## Maintenance
+
+Keep this file updated when making architectural changes to the codebase.

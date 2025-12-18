@@ -11,12 +11,14 @@ static const char *const TAG = "actron_air_keypad";
 namespace {
 
 void publish_binary(binary_sensor::BinarySensor *sensor, bool state) {
-  if (sensor) {
-    sensor->publish_state(state);
+  if (!sensor) {
+    return;
   }
+
+  sensor->publish_state(state);
 }
 
-}  // namespace
+} // namespace
 
 void IRAM_ATTR ActronAirKeypad::handle_interrupt(ActronAirKeypad *arg) {
   if (arg) {
@@ -25,12 +27,12 @@ void IRAM_ATTR ActronAirKeypad::handle_interrupt(ActronAirKeypad *arg) {
 }
 
 ActronAirKeypad::~ActronAirKeypad() {
-  if (pin_) {
-    // Note: This component requires InternalGPIOPin for interrupt support.
-    // The ESPHome schema should ensure only internal GPIO pins are used.
-    auto *internal_pin = static_cast<InternalGPIOPin *>(pin_);
-    internal_pin->detach_interrupt();
+  if (!pin_) {
+    return;
   }
+
+  auto *internal_pin = static_cast<InternalGPIOPin *>(pin_);
+  internal_pin->detach_interrupt();
 }
 
 void ActronAirKeypad::setup() {

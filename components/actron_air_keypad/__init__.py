@@ -12,14 +12,14 @@ import esphome.config_validation as cv
 from esphome.const import CONF_ID, CONF_PIN
 from esphome.cpp_helpers import gpio_pin_expression
 
-CODEOWNERS = ['@johnf']
-AUTO_LOAD = ['sensor', 'binary_sensor', 'text_sensor']
+CODEOWNERS = ["@johnf"]
+AUTO_LOAD = ["sensor", "binary_sensor", "text_sensor"]
 
 # Shared constant for referencing the parent component
-CONF_ACTRON_AIR_KEYPAD_ID = 'actron_air_keypad_id'
+CONF_ACTRON_AIR_KEYPAD_ID = "actron_air_keypad_id"
 
-actron_air_keypad_ns = cg.esphome_ns.namespace('actron_air_keypad')
-ActronAirKeypad = actron_air_keypad_ns.class_('ActronAirKeypad', cg.Component)
+actron_air_keypad_ns = cg.esphome_ns.namespace("actron_air_keypad")
+ActronAirKeypad = actron_air_keypad_ns.class_("ActronAirKeypad", cg.Component)
 
 CONFIG_SCHEMA = cv.Schema(
     {

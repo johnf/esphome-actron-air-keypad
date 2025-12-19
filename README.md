@@ -58,7 +58,24 @@ wall controllers with a 4-wire interface (SENS, KEY, COMM, POWER).
 
 ## Installation
 
-### HACS (Recommended)
+This project has two parts:
+
+1. **ESPHome component** - Runs on your ESP32 to read the keypad and control the AC
+2. **Home Assistant integration** - Provides climate entity and Lovelace card
+
+**Set up the ESPHome device first**, then install the Home Assistant integration.
+
+### Step 1: ESPHome Device Setup
+
+See [ESPHome Configuration](#esphome-configuration) below for detailed setup instructions.
+The quickest way is to use the ESPHome package - just copy
+[example_actron_air_keypad.yaml](example_actron_air_keypad.yaml) and customise for your setup.
+
+### Step 2: Home Assistant Integration
+
+Once your ESPHome device is running, install the integration:
+
+#### HACS (Recommended)
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=johnf&repository=actron-air-esphome&category=integration)
 
@@ -75,23 +92,12 @@ Or manually:
 
 The integration will automatically register the Lovelace card.
 
-### Manual Installation
+#### Manual Installation
 
 1. Copy the `custom_components/actron_air_esphome` folder to your Home Assistant `config/custom_components/` directory
 2. Restart Home Assistant
 3. Go to Settings > Devices & Services > Add Integration
 4. Search for "Actron Air ESPHome" and configure
-
-### ESPHome External Component
-
-```yaml
-external_components:
-  - source:
-      type: git
-      url: https://github.com/johnf/actron-air-esphome
-      ref: main
-    components: [actron_air_esphome]
-```
 
 ## Lovelace Card Usage
 
@@ -170,27 +176,25 @@ The card expects entities with the following naming pattern based on your `entit
 
 ## ESPHome Configuration
 
-See [example_actron_air_keypad.yaml](example_actron_air_keypad.yaml) for complete configuration with all
-sensors, DAC controls, and mDNS auto-discovery.
+The easiest way to get started is to use the ESPHome package, which includes all
+sensors, DAC controls, and button definitions. See
+[example_actron_air_keypad.yaml](example_actron_air_keypad.yaml) for a complete example.
 
-### Auto-Discovery
-
-The example includes an `mdns` service configuration that enables automatic discovery
-in Home Assistant. When configured, Home Assistant will detect the device and prompt
-you to set up the integration.
-
-### Basic Configuration
+### Quick Start (Using Package)
 
 ```yaml
-# Load the component
-external_components:
-  - source:
-      type: git
-      url: https://github.com/johnf/actron-air-esphome
-      ref: main
-    components: [actron_air_esphome]
+packages:
+  actron_air: github://johnf/actron-air-esphome/actron_air_keypad.yaml@main
 
-# Enable auto-discovery in Home Assistant (optional)
+esphome:
+  name: "my-aircon"
+  friendly_name: My Air Conditioner
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+# Enable auto-discovery in Home Assistant
 mdns:
   services:
     - service: "_actron_air"
@@ -198,19 +202,76 @@ mdns:
       port: 6053
       txt:
         version: "1.0.0"
-        name: "${device_name}"
+        name: "my-aircon"
+```
 
-# Configure the reader
+That's it! The package includes everything you need:
+
+- All 7 zones (remove unused ones with `!remove` if desired)
+- DAC output for button emulation
+- All binary sensors, switches, and buttons
+- Configurable GPIO pins and voltage calibration via substitutions
+
+### Customising the Package
+
+Override any defaults by adding a `substitutions` section before the package:
+
+```yaml
+substitutions:
+  gpio_keypad_pin: "GPIO32"    # Pin for keypad signal
+  gpio_i2c_sda: "GPIO21"       # I2C SDA pin
+  gpio_i2c_scl: "GPIO22"       # I2C SCL pin
+  # Voltage calibration (millivolts)
+  voltage_zone_1: "725.0"
+  voltage_zone_2: "663.0"
+  # ... see actron_air_keypad.yaml for all options
+
+packages:
+  actron_air: github://johnf/actron-air-esphome/actron_air_keypad.yaml@main
+```
+
+### Removing Unused Zones
+
+If you have fewer than 7 zones, you can remove the unused ones:
+
+```yaml
+packages:
+  actron_air: github://johnf/actron-air-esphome/actron_air_keypad.yaml@main
+
+# Remove zones 4-7 for a 3-zone system
+switch:
+  - id: !remove zone_4_switch
+  - id: !remove zone_5_switch
+  - id: !remove zone_6_switch
+  - id: !remove zone_7_switch
+
+binary_sensor:
+  - id: !remove zone_4
+  - id: !remove zone_5
+  - id: !remove zone_6
+  - id: !remove zone_7
+```
+
+### Manual Configuration (Without Package)
+
+If you prefer more control, you can use the external component directly:
+
+```yaml
+external_components:
+  - source:
+      type: git
+      url: https://github.com/johnf/actron-air-esphome
+      ref: main
+    components: [actron_air_esphome]
+
 actron_air_esphome:
   pin: GPIO32
 
-# Add temperature sensor
 sensor:
   - platform: actron_air_esphome
     setpoint_temp:
       name: "Temperature"
 
-# Add mode sensors
 binary_sensor:
   - platform: actron_air_esphome
     cool:
@@ -220,23 +281,9 @@ binary_sensor:
     fan_high:
       name: "Fan High"
     zone1:
-      name: "Zone Bedrooms"
-      icon: mdi:bed
+      name: "Zone 1"
     zone2:
-      name: "Zone Living"
-      icon: mdi:sofa
-
-text_sensor:
-  - platform: template
-    name: "Fan Mode"
-    lambda: |-
-      if (id(fan_high).state && id(fan_cont).state)
-        return {"High Continuous"};
-      else if (id(fan_high).state)
-        return {"High"};
-      else if (id(fan_mid).state)
-        return {"Medium"};
-      return {"Low"};
+      name: "Zone 2"
 ```
 
 ## Climate Entity

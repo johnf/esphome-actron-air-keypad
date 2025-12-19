@@ -1,0 +1,433 @@
+# ESPHome Package for Actron Air Keypad
+# Include this package in your ESPHome configuration and provide your own
+# esphome name, wifi credentials, and optionally override any substitutions.
+#
+# Usage:
+#   packages:
+#     actron_air: github://johnf/actron-air-esphome/actron_air_keypad.yaml@main
+#
+# All substitutions below can be overridden in your configuration.
+
+substitutions:
+  # GPIO Configuration
+  gpio_keypad_pin: "GPIO32"
+  gpio_i2c_sda: "GPIO21"
+  gpio_i2c_scl: "GPIO22"
+
+  # DAC voltage values for button presses (in millivolts)
+  voltage_power: "5000.0"
+  voltage_fan: "755.0"
+  voltage_mode: "620.0"
+  voltage_temp_up: "889.0"
+  voltage_temp_down: "782.0"
+  voltage_timer: "862"
+  voltage_timer_up: "828.0"
+  voltage_timer_down: "808.0"
+
+  # Zone voltage values (calibrate for your keypad)
+  voltage_zone_1: "725.0"
+  voltage_zone_2: "663.0"
+  voltage_zone_3: "695.0"
+  voltage_zone_4: "650.0"
+  voltage_zone_5: "635.0"
+  voltage_zone_6: "620.0"
+  voltage_zone_7: "605.0"
+
+esp32:
+  variant: esp32
+  framework:
+    type: esp-idf
+
+logger:
+
+api:
+
+ota:
+  - platform: esphome
+
+captive_portal:
+
+web_server:
+  port: 80
+
+# I2C bus for MCP4725 DAC
+i2c:
+  sda: ${gpio_i2c_sda}
+  scl: ${gpio_i2c_scl}
+
+# MCP4725 output to send voltages for key presses
+output:
+  - platform: mcp4725
+    id: dac_output
+
+globals:
+  - id: dac_value
+    type: double
+  - id: prev_fan
+    type: std::string
+    initial_value: '"Unset"'
+  # DAC voltage values for button presses
+  - id: voltage_power
+    type: double
+    initial_value: "${voltage_power}"
+  - id: voltage_fan
+    type: double
+    initial_value: "${voltage_fan}"
+  - id: voltage_mode
+    type: double
+    initial_value: "${voltage_mode}"
+  - id: voltage_temp_up
+    type: double
+    initial_value: "${voltage_temp_up}"
+  - id: voltage_temp_down
+    type: double
+    initial_value: "${voltage_temp_down}"
+  - id: voltage_timer
+    type: double
+    initial_value: "${voltage_timer}"
+  - id: voltage_timer_up
+    type: double
+    initial_value: "${voltage_timer_up}"
+  - id: voltage_timer_down
+    type: double
+    initial_value: "${voltage_timer_down}"
+  - id: voltage_zone_1
+    type: double
+    initial_value: "${voltage_zone_1}"
+  - id: voltage_zone_2
+    type: double
+    initial_value: "${voltage_zone_2}"
+  - id: voltage_zone_3
+    type: double
+    initial_value: "${voltage_zone_3}"
+  - id: voltage_zone_4
+    type: double
+    initial_value: "${voltage_zone_4}"
+  - id: voltage_zone_5
+    type: double
+    initial_value: "${voltage_zone_5}"
+  - id: voltage_zone_6
+    type: double
+    initial_value: "${voltage_zone_6}"
+  - id: voltage_zone_7
+    type: double
+    initial_value: "${voltage_zone_7}"
+
+# DAC output control for testing
+number:
+  - platform: template
+    name: "DAC Output milliVolts"
+    icon: mdi:flash-triangle
+    min_value: 0
+    max_value: 5000
+    step: 0.1
+    optimistic: true
+    on_value:
+      then:
+        lambda: |-
+          id(dac_output).set_level((x / 5000.0));
+
+# Button controls
+button:
+  - platform: template
+    name: "Press"
+    id: press_button
+    internal: true
+    icon: mdi:power
+    on_press:
+      - logger.log: Button Pressed
+      - lambda: |-
+          id(dac_output).set_level((id(dac_value) / 5000.0));
+      - delay: 250ms
+      - lambda: |-
+          id(dac_output).set_level((0.0 / 5000.0));
+      - delay: 250ms
+
+  - platform: template
+    name: "Fan"
+    icon: mdi:fan
+    on_press:
+      - lambda: |-
+          id(dac_value)=id(voltage_fan);
+          id(press_button).press();
+
+  - platform: template
+    name: "Mode"
+    icon: mdi:air-conditioner
+    on_press:
+      - lambda: |-
+          id(dac_value)=id(voltage_mode);
+          id(press_button).press();
+
+  - platform: template
+    name: "Temp Up"
+    icon: mdi:thermometer-plus
+    on_press:
+      - lambda: |-
+          id(dac_value)=id(voltage_temp_up);
+          id(press_button).press();
+
+  - platform: template
+    name: "Temp Down"
+    icon: mdi:thermometer-minus
+    on_press:
+      - lambda: |-
+          id(dac_value)=id(voltage_temp_down);
+          id(press_button).press();
+
+  - platform: template
+    name: "Timer"
+    icon: mdi:timer
+    on_press:
+      - lambda: |-
+          id(dac_value)=id(voltage_timer);
+          id(press_button).press();
+
+  - platform: template
+    name: "Timer Up"
+    icon: mdi:timer-plus
+    on_press:
+      - lambda: |-
+          id(dac_value)=id(voltage_timer_up);
+          id(press_button).press();
+
+  - platform: template
+    name: "Timer Down"
+    icon: mdi:timer-minus
+    on_press:
+      - lambda: |-
+          id(dac_value)=id(voltage_timer_down);
+          id(press_button).press();
+
+# Power and zone control switches
+switch:
+  - platform: template
+    icon: mdi:power
+    id: power
+    name: "Power"
+    turn_on_action:
+      - lambda: |-
+          id(dac_value)=id(voltage_power);
+          id(press_button).press();
+    turn_off_action:
+      - lambda: |-
+          id(dac_value)=id(voltage_power);
+          id(press_button).press();
+    lambda: |-
+      return (id(cool).state or id(auto_mode).state or id(heat).state or id(fan_cont).state or id(fan_high).state or id(fan_mid).state or id(fan_low).state);
+
+  - platform: template
+    id: zone_1_switch
+    name: "Zone 1"
+    icon: mdi:air-conditioner
+    turn_on_action:
+      - lambda: |-
+          id(dac_value)=id(voltage_zone_1);
+          id(press_button).press();
+    turn_off_action:
+      - lambda: |-
+          id(dac_value)=id(voltage_zone_1);
+          id(press_button).press();
+    lambda: return id(zone_1).state;
+
+  - platform: template
+    id: zone_2_switch
+    name: "Zone 2"
+    icon: mdi:air-conditioner
+    turn_on_action:
+      - lambda: |-
+          id(dac_value)=id(voltage_zone_2);
+          id(press_button).press();
+    turn_off_action:
+      - lambda: |-
+          id(dac_value)=id(voltage_zone_2);
+          id(press_button).press();
+    lambda: return id(zone_2).state;
+
+  - platform: template
+    id: zone_3_switch
+    name: "Zone 3"
+    icon: mdi:air-conditioner
+    turn_on_action:
+      - lambda: |-
+          id(dac_value)=id(voltage_zone_3);
+          id(press_button).press();
+    turn_off_action:
+      - lambda: |-
+          id(dac_value)=id(voltage_zone_3);
+          id(press_button).press();
+    lambda: return id(zone_3).state;
+
+  - platform: template
+    id: zone_4_switch
+    name: "Zone 4"
+    icon: mdi:air-conditioner
+    turn_on_action:
+      - lambda: |-
+          id(dac_value)=id(voltage_zone_4);
+          id(press_button).press();
+    turn_off_action:
+      - lambda: |-
+          id(dac_value)=id(voltage_zone_4);
+          id(press_button).press();
+    lambda: return id(zone_4).state;
+
+  - platform: template
+    id: zone_5_switch
+    name: "Zone 5"
+    icon: mdi:air-conditioner
+    turn_on_action:
+      - lambda: |-
+          id(dac_value)=id(voltage_zone_5);
+          id(press_button).press();
+    turn_off_action:
+      - lambda: |-
+          id(dac_value)=id(voltage_zone_5);
+          id(press_button).press();
+    lambda: return id(zone_5).state;
+
+  - platform: template
+    id: zone_6_switch
+    name: "Zone 6"
+    icon: mdi:air-conditioner
+    turn_on_action:
+      - lambda: |-
+          id(dac_value)=id(voltage_zone_6);
+          id(press_button).press();
+    turn_off_action:
+      - lambda: |-
+          id(dac_value)=id(voltage_zone_6);
+          id(press_button).press();
+    lambda: return id(zone_6).state;
+
+  - platform: template
+    id: zone_7_switch
+    name: "Zone 7"
+    icon: mdi:air-conditioner
+    turn_on_action:
+      - lambda: |-
+          id(dac_value)=id(voltage_zone_7);
+          id(press_button).press();
+    turn_off_action:
+      - lambda: |-
+          id(dac_value)=id(voltage_zone_7);
+          id(press_button).press();
+    lambda: return id(zone_7).state;
+
+external_components:
+  - source: github://johnf/actron-air-esphome
+    components: [actron_air_esphome]
+    refresh: 0s
+
+actron_air_esphome:
+  id: actron_air_esphome_1
+  pin: ${gpio_keypad_pin}
+
+# Sensors from keypad status component
+sensor:
+  - platform: actron_air_esphome
+    setpoint_temp:
+      name: "Setpoint Temperature"
+      id: setpoint_temp
+      icon: mdi:thermometer
+    error_count:
+      name: "Error Count"
+      id: error_count
+
+text_sensor:
+  - platform: actron_air_esphome
+    bit_string:
+      name: "Bit String"
+      id: bit_string
+      internal: true
+
+  - platform: template
+    name: "Fan Mode"
+    update_interval: 1s
+    lambda: |-
+      std::string current_fan = "";
+      if (id(fan_high).state and !id(fan_cont).state) {
+        current_fan="High";
+      } else if (id(fan_mid).state and !id(fan_cont).state) {
+        current_fan="Medium";
+      } else if (id(fan_low).state and !id(fan_cont).state) {
+        current_fan="Low";
+      } else if (id(fan_high).state and id(fan_cont).state) {
+        current_fan="High Cont";
+      } else if (id(fan_mid).state and id(fan_cont).state) {
+        current_fan="Medium Cont";
+      } else if (id(fan_low).state and id(fan_cont).state) {
+        current_fan="Low Cont";
+      } else {
+        current_fan="Off";
+      }
+      if (current_fan.compare(id(prev_fan)) != 0) {
+        id(prev_fan) = current_fan;
+        return {current_fan};
+      }
+      return {};
+
+binary_sensor:
+  - platform: actron_air_esphome
+    room:
+      id: room
+      name: "Room"
+    fan_cont:
+      id: fan_cont
+      name: "Fan Cont"
+      icon: mdi:fan-chevron-up
+    fan_high:
+      id: fan_high
+      name: "Fan High"
+      icon: mdi:fan-speed-3
+    fan_mid:
+      id: fan_mid
+      name: "Fan Mid"
+      icon: mdi:fan-speed-2
+    fan_low:
+      id: fan_low
+      name: "Fan Low"
+      icon: mdi:fan-speed-1
+    cool:
+      id: cool
+      name: "Cool"
+      icon: mdi:snowflake
+    auto_mode:
+      id: auto_mode
+      name: "Auto"
+      icon: mdi:flash-auto
+    heat:
+      id: heat
+      name: "Heat"
+      icon: mdi:fire
+    run:
+      id: run
+      name: "Run"
+      icon: mdi:run
+    timer:
+      id: timer
+      name: "Timer"
+    inside:
+      id: inside
+      name: "Inside"
+    zone1:
+      id: zone_1
+      name: "Zone 1"
+    zone2:
+      id: zone_2
+      name: "Zone 2"
+    zone3:
+      id: zone_3
+      name: "Zone 3"
+    zone4:
+      id: zone_4
+      name: "Zone 4"
+    zone5:
+      id: zone_5
+      name: "Zone 5"
+    zone6:
+      id: zone_6
+      name: "Zone 6"
+    zone7:
+      id: zone_7
+      name: "Zone 7"

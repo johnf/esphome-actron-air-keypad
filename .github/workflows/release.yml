@@ -43,7 +43,7 @@ jobs:
       - name: Create integration zip
         run: |
           cd custom_components
-          zip -r ../actron_air_esphome.zip actron_air_esphome
+          zip -jr ../actron_air_esphome.zip actron_air_esphome
 
       - name: Upload integration zip
         uses: svenstaro/upload-release-action@v2

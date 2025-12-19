@@ -63,6 +63,8 @@ external_components:
 
 ## Lovelace Card Usage
 
+![Actron Air Card](images/actron_air_card.png)
+
 Add the card to your dashboard:
 
 ```yaml

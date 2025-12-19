@@ -1,10 +1,12 @@
 """Actron Air ESPHome integration for Home Assistant."""
+
 from __future__ import annotations
 
 import logging
 from pathlib import Path
 
 from homeassistant.components.frontend import add_extra_js_url
+from homeassistant.components.http import StaticPathConfig
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
@@ -61,7 +63,9 @@ async def _async_register_frontend(hass: HomeAssistant) -> None:
         return
 
     # Register static path to serve the JS file
-    hass.http.register_static_path(CARD_URL, str(card_path), cache_headers=False)
+    await hass.http.async_register_static_paths(
+        [StaticPathConfig(CARD_URL, str(card_path), cache_headers=False)]
+    )
 
     # Add as extra JS module so it loads on all dashboards
     add_extra_js_url(hass, CARD_URL)

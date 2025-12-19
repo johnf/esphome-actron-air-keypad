@@ -20,10 +20,41 @@ entity and custom Lovelace card.
 - ESP32 (ESP-IDF framework)
 - GPIO pin for pulse train input
 - Connection to air conditioner keypad display output
+- MCP4725 or MCP4726 DAC (I2C) for keypad button emulation
+- BC548 NPN transistor
+- Resistors: 20kΩ, 4.7kΩ, 1.2kΩ (0.5W or higher)
 
-See the forum thread at
-<https://community.home-assistant.io/t/actron-aircon-esp32-controller-help/609062>
-to build the hardware.
+See the [forum thread](https://community.home-assistant.io/t/actron-aircon-esp32-controller-help/609062)
+for detailed build instructions and wiring diagrams.
+
+## Compatible Systems
+
+This integration works with Actron Air ducted systems that use the older-style
+wall controllers with a 4-wire interface (SENS, KEY, COMM, POWER).
+
+### Wall Controllers
+
+| Controller | Status | Notes |
+|------------|--------|-------|
+| LM24 | Confirmed | Multi-zone controller |
+| LM7 / LM7-2W / LM7-2G | Community reported | 7-day programmable, up to 8 zones |
+| LM7-D | Community reported | Ultima Zone Control Master |
+| AM7 | Community reported | Original older controller |
+
+### Air Conditioner Systems
+
+**Compatible:**
+
+- SRA series (e.g., SRA22C, SRA25C) - older multi-zone ducted systems
+- SRD series (e.g., SRD175C, SRD22C) - older ducted systems
+- ESP Plus, ESP Platinum, ESP Ultima with LM7/LM24 controllers
+- Classic series (SRG models) with LM7/LM24 controllers
+
+**Not compatible:**
+
+- Systems with QUE controllers (different architecture)
+- Systems with ActronConnect/ACM WiFi modules (post-2013)
+- Serene Series with Easy Connect app
 
 ## Installation
 

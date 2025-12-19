@@ -1,4 +1,4 @@
-"""Binary sensor platform for Actron Air Keypad component."""
+"""Binary sensor platform for Actron Air ESPHome component."""
 
 from typing import Any
 
@@ -6,9 +6,9 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import binary_sensor
 
-from . import ActronAirKeypad, CONF_ACTRON_AIR_KEYPAD_ID
+from . import ActronAirKeypad, CONF_ACTRON_AIR_ESPHOME_ID
 
-DEPENDENCIES = ['actron_air_keypad']
+DEPENDENCIES = ['actron_air_esphome']
 
 # Sensor configuration keys
 CONF_ROOM = 'room'
@@ -54,7 +54,7 @@ SENSOR_MAP: list[tuple[str, str]] = [
 
 CONFIG_SCHEMA = cv.Schema(
     {
-        cv.GenerateID(CONF_ACTRON_AIR_KEYPAD_ID): cv.use_id(ActronAirKeypad),
+        cv.GenerateID(CONF_ACTRON_AIR_ESPHOME_ID): cv.use_id(ActronAirKeypad),
         cv.Optional(CONF_ROOM): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_FAN_CONT): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_FAN_HIGH): binary_sensor.binary_sensor_schema(),
@@ -78,7 +78,7 @@ CONFIG_SCHEMA = cv.Schema(
 
 
 async def to_code(config: dict[str, Any]) -> None:
-    parent = await cg.get_variable(config[CONF_ACTRON_AIR_KEYPAD_ID])
+    parent = await cg.get_variable(config[CONF_ACTRON_AIR_ESPHOME_ID])
 
     for conf_key, setter_name in SENSOR_MAP:
         if conf_key in config:

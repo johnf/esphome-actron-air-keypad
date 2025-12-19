@@ -233,17 +233,17 @@ switch:
   # NOTE: Add more zones as needed
 
 external_components:
-  - source: github://johnf/esphome-actron-air-keypad
-    components: [actron_air_keypad]
+  - source: github://johnf/esphome_actron_air_keypad
+    components: [actron_air_esphome]
     refresh: 0s
 
-actron_air_keypad:
-  id: actron_air_keypad_1
+actron_air_esphome:
+  id: actron_air_esphome_1
   pin: GPIO32
 
 # Sensors from keypad status component
 sensor:
-  - platform: actron_air_keypad
+  - platform: actron_air_esphome
     setpoint_temp:
       name: "Setpoint Temperature"
       id: setpoint_temp
@@ -262,7 +262,7 @@ sensor:
   #  - multiply: 5
 
 text_sensor:
-  - platform: actron_air_keypad
+  - platform: actron_air_esphome
     bit_string:
       name: "Bit String"
       id: bit_string
@@ -295,7 +295,7 @@ text_sensor:
       return {};
 
 binary_sensor:
-  - platform: actron_air_keypad
+  - platform: actron_air_esphome
     room:
       id: room
       name: "Room"

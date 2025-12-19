@@ -1,7 +1,8 @@
 # Actron Air ESP32 Keypad Component for ESPHome
 
 An ESPHome external component for reading and decoding pulse trains from the
-Actron Air ESP32 keypad display, plus a custom Lovelace card for Home Assistant.
+Actron Air ESP32 keypad display, plus a Home Assistant integration with climate
+entity and custom Lovelace card.
 
 ## Key Features
 
@@ -11,6 +12,7 @@ Actron Air ESP32 keypad display, plus a custom Lovelace card for Home Assistant.
 - **18 binary sensors**: Mode, fan, zones, timers
 - **Error tracking**: Bit count for monitoring reliability
 - **Type-safe config**: ESPHome validation for all settings
+- **Climate entity**: Full HVAC control with zone presets
 - **Custom Lovelace card**: Retro keypad-style control interface
 
 ## Hardware Requirements
@@ -27,28 +29,27 @@ to build the hardware.
 
 ### HACS (Recommended)
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=johnf&repository=esphome_actron_air_keypad&category=plugin)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=johnf&repository=esphome_actron_air_keypad&category=integration)
+
 Or manually:
 
 1. Open HACS in Home Assistant
-2. Go to "Frontend" section
+2. Go to "Integrations" section
 3. Click the three dots menu and select "Custom repositories"
-4. Add `https://github.com/johnf/esphome_actron_air_keypad` with category "Lovelace"
-5. Install "Actron Air ESPHome Card"
+4. Add `https://github.com/johnf/esphome_actron_air_keypad` with category "Integration"
+5. Install "Actron Air ESPHome"
 6. Restart Home Assistant
+7. Go to Settings > Devices & Services > Add Integration
+8. Search for "Actron Air ESPHome" and configure
+
+The integration will automatically register the Lovelace card.
 
 ### Manual Installation
 
-1. Download `actron-air-esphome-card.js` from the [latest release](https://github.com/johnf/esphome_actron_air_keypad/releases)
-2. Copy to `config/www/actron-air-esphome-card.js`
-3. Add to Lovelace resources (Settings > Dashboards > Resources):
-
-   ```yaml
-   url: /local/actron-air-esphome-card.js
-   type: module
-   ```
-
-4. Restart Home Assistant
+1. Copy the `custom_components/actron_air_esphome` folder to your Home Assistant `config/custom_components/` directory
+2. Restart Home Assistant
+3. Go to Settings > Devices & Services > Add Integration
+4. Search for "Actron Air ESPHome" and configure
 
 ### ESPHome External Component
 
@@ -58,7 +59,7 @@ external_components:
       type: git
       url: https://github.com/johnf/esphome_actron_air_keypad
       ref: main
-    components: [actron_air_keypad]
+    components: [actron_air_esphome]
 ```
 
 ## Lovelace Card Usage
@@ -138,7 +139,7 @@ The card expects entities with the following naming pattern based on your `entit
 
 ## ESPHome Configuration
 
-See <example_actron_air_keypad.yaml> for complete configuration with all
+See [example_actron_air_keypad.yaml](example_actron_air_keypad.yaml) for complete configuration with all
 sensors and DAC controls.
 
 ```yaml
@@ -149,23 +150,23 @@ external_components:
       path: components
 
 # Configure the reader
-actron_air_keypad:
-  adc_pin: GPIO33
+actron_air_esphome:
+  pin: GPIO32
 
 # Add temperature sensor
 sensor:
-  - platform: actron_air_keypad
+  - platform: actron_air_esphome
     setpoint_temp:
       name: "Temperature"
 
 # Add mode sensors
 binary_sensor:
-  - platform: actron_air_keypad
+  - platform: actron_air_esphome
     cool:
       name: "Cool Mode"
     heat:
       name: "Heat Mode"
-    fan_hi:
+    fan_high:
       name: "Fan High"
     zone1:
       name: "Zone Bedrooms"
@@ -178,14 +179,25 @@ text_sensor:
   - platform: template
     name: "Fan Mode"
     lambda: |-
-      if (id(fan_hi).state && id(fan_cont).state)
+      if (id(fan_high).state && id(fan_cont).state)
         return {"High Continuous"};
-      else if (id(fan_hi).state)
+      else if (id(fan_high).state)
         return {"High"};
       else if (id(fan_mid).state)
         return {"Medium"};
       return {"Low"};
 ```
+
+## Climate Entity
+
+The Home Assistant integration provides a climate entity with:
+
+- **HVAC Modes**: Off, Cool, Heat, Auto, Fan Only
+- **Fan Modes**: High, Medium, Low, High Cont, Medium Cont, Low Cont, Off
+- **Zone Presets**: Individual zones and "All Zones"
+- **Optional**: Current temperature and humidity from external sensors
+
+Configure via Settings > Devices & Services after installing the integration.
 
 ## Available ESPHome Sensors
 
@@ -196,10 +208,10 @@ text_sensor:
 
 ### Status Sensors (`binary_sensor` platform)
 
-- **Mode**: `cool`, `heat`, `auto`, `run`
-- **Fan**: `fan_hi`, `fan_mid`, `fan_low`, `fan_cont`
+- **Mode**: `cool`, `heat`, `auto_mode`, `run`
+- **Fan**: `fan_high`, `fan_mid`, `fan_low`, `fan_cont`
 - **Zones**: `zone1` through `zone7`
-- **Other**: `inside`, `timer`
+- **Other**: `inside`, `timer`, `room`
 
 ### Debug Sensors (`text_sensor` platform)
 

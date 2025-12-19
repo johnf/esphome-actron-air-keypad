@@ -1,4 +1,4 @@
-"""Actron Air Keypad ESPHome component.
+"""Actron Air ESPHome component.
 
 Decodes the pulse train from an Actron Air keypad display to extract
 temperature setpoint, mode indicators, fan speeds, and zone states.
@@ -16,10 +16,10 @@ CODEOWNERS = ["@johnf"]
 AUTO_LOAD = ["sensor", "binary_sensor", "text_sensor"]
 
 # Shared constant for referencing the parent component
-CONF_ACTRON_AIR_KEYPAD_ID = "actron_air_keypad_id"
+CONF_ACTRON_AIR_ESPHOME_ID = "actron_air_esphome_id"
 
-actron_air_keypad_ns = cg.esphome_ns.namespace("actron_air_keypad")
-ActronAirKeypad = actron_air_keypad_ns.class_("ActronAirKeypad", cg.Component)
+actron_air_esphome_ns = cg.esphome_ns.namespace("actron_air_esphome")
+ActronAirKeypad = actron_air_esphome_ns.class_("ActronAirKeypad", cg.Component)
 
 CONFIG_SCHEMA = cv.Schema(
     {

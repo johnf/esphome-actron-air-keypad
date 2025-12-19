@@ -1,9 +1,9 @@
 #include "actron_air_keypad.h"
 
 namespace esphome {
-namespace actron_air_keypad {
+namespace actron_air_esphome {
 
-static const char *const TAG = "actron_air_keypad";
+static const char *const TAG = "actron_air_esphome";
 
 // Decode 7-segment pattern (GFEDCBA) to character
 //    AAA
@@ -225,9 +225,9 @@ void ActronAirKeypad::loop() {
 }
 
 void ActronAirKeypad::dump_config() {
-  ESP_LOGCONFIG(TAG, "Actron Air Keypad:");
+  ESP_LOGCONFIG(TAG, "Actron Air ESPHome:");
   LOG_PIN("  Pin: ", this->pin_);
 }
 
-} // namespace actron_air_keypad
+} // namespace actron_air_esphome
 } // namespace esphome

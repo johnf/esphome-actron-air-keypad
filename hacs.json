@@ -1,5 +1,5 @@
 {
-  "name": "Actron Air ESPHome Card",
+  "name": "Actron Air (ESPHome)",
   "render_readme": true,
-  "filename": "actron-air-esphome-card.js"
+  "homeassistant": "2024.1.0"
 }

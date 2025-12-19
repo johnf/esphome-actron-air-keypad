@@ -1,4 +1,4 @@
-"""Sensor platform for Actron Air Keypad component."""
+"""Sensor platform for Actron Air ESPHome component."""
 
 from typing import Any
 
@@ -11,16 +11,16 @@ from esphome.const import (
     UNIT_CELSIUS,
 )
 
-from . import ActronAirKeypad, CONF_ACTRON_AIR_KEYPAD_ID
+from . import ActronAirKeypad, CONF_ACTRON_AIR_ESPHOME_ID
 
-DEPENDENCIES = ['actron_air_keypad']
+DEPENDENCIES = ['actron_air_esphome']
 
 CONF_SETPOINT_TEMP = 'setpoint_temp'
 CONF_ERROR_COUNT = 'error_count'
 
 CONFIG_SCHEMA = cv.Schema(
     {
-        cv.GenerateID(CONF_ACTRON_AIR_KEYPAD_ID): cv.use_id(ActronAirKeypad),
+        cv.GenerateID(CONF_ACTRON_AIR_ESPHOME_ID): cv.use_id(ActronAirKeypad),
         cv.Optional(CONF_SETPOINT_TEMP): sensor.sensor_schema(
             unit_of_measurement=UNIT_CELSIUS,
             accuracy_decimals=1,
@@ -36,7 +36,7 @@ CONFIG_SCHEMA = cv.Schema(
 
 
 async def to_code(config: dict[str, Any]) -> None:
-    parent = await cg.get_variable(config[CONF_ACTRON_AIR_KEYPAD_ID])
+    parent = await cg.get_variable(config[CONF_ACTRON_AIR_ESPHOME_ID])
 
     if CONF_SETPOINT_TEMP in config:
         sens = await sensor.new_sensor(config[CONF_SETPOINT_TEMP])

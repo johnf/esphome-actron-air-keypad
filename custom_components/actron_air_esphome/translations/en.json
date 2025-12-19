@@ -1,0 +1,40 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Actron Air ESPHome Configuration",
+        "description": "Configure your Actron Air ESPHome integration. The entity prefix should match your ESPHome device name.",
+        "data": {
+          "entity_prefix": "Entity Prefix",
+          "zone_count": "Number of Zones",
+          "current_temperature_sensor": "Current Temperature Sensor (optional)",
+          "humidity_sensor": "Humidity Sensor (optional)"
+        },
+        "data_description": {
+          "entity_prefix": "The prefix used for your ESPHome entities (e.g., actron_air_esphome)",
+          "zone_count": "The number of zones configured in your Actron Air system (1-7)",
+          "current_temperature_sensor": "An external temperature sensor to display current room temperature",
+          "humidity_sensor": "An external humidity sensor to display current humidity"
+        }
+      }
+    },
+    "error": {
+      "entity_not_found": "Could not find ESPHome entities with this prefix. Ensure your ESPHome device is connected and the prefix is correct."
+    },
+    "abort": {
+      "already_configured": "This entity prefix is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Actron Air ESPHome Options",
+        "data": {
+          "zone_count": "Number of Zones",
+          "current_temperature_sensor": "Current Temperature Sensor",
+          "humidity_sensor": "Humidity Sensor"
+        }
+      }
+    }
+  }
+}

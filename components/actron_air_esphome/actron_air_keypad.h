@@ -12,7 +12,7 @@
 #include "esphome/core/hal.h"
 
 namespace esphome {
-namespace actron_air_keypad {
+namespace actron_air_esphome {
 
 // Protocol timing constants (microseconds)
 constexpr unsigned long FRAME_BOUNDARY_US = 3500;
@@ -171,5 +171,5 @@ private:
   volatile bool has_data_error_{false};
 };
 
-} // namespace actron_air_keypad
+} // namespace actron_air_esphome
 } // namespace esphome

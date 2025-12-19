@@ -1,3 +1,4 @@
 cdeps
 node_modules
 dist
+custom_components/actron_air_esphome/frontend/actron-air-esphome-card.js

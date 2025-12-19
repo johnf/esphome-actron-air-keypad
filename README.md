@@ -280,9 +280,9 @@ binary_sensor:
       name: "Heat Mode"
     fan_high:
       name: "Fan High"
-    zone1:
+    zone_1:
       name: "Zone 1"
-    zone2:
+    zone_2:
       name: "Zone 2"
 ```
 
@@ -308,7 +308,7 @@ Configure via Settings > Devices & Services after installing the integration.
 
 - **Mode**: `cool`, `heat`, `auto_mode`, `run`
 - **Fan**: `fan_high`, `fan_mid`, `fan_low`, `fan_cont`
-- **Zones**: `zone1` through `zone7`
+- **Zones**: `zone_1` through `zone_7`
 - **Other**: `inside`, `timer`, `room`
 
 ### Debug Sensors (`text_sensor` platform)

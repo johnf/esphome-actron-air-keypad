@@ -37,8 +37,8 @@ export const cardStyles = css`
       'temp-up temp-up set-temp set-temp timer timer timer-up timer-up'
       'temp-down temp-down set-temp set-temp . . timer-down timer-down'
       '. . . . . . . .'
-      'zone1 zone1 zone1 zone1 zone2 zone2 zone2 zone2'
-      'zone3 zone3 zone3 zone3 zone4 zone4 zone4 zone4';
+      'zone_1 zone_1 zone_1 zone_1 zone_2 zone_2 zone_2 zone_2'
+      'zone_3 zone_3 zone_3 zone_3 zone_4 zone_4 zone_4 zone_4';
   }
 
   /* LCD Display */
@@ -274,20 +274,20 @@ export const cardStyles = css`
     display: flex;
   }
 
-  .zone1 {
-    grid-area: zone1;
+  .zone_1 {
+    grid-area: zone_1;
   }
 
-  .zone2 {
-    grid-area: zone2;
+  .zone_2 {
+    grid-area: zone_2;
   }
 
-  .zone3 {
-    grid-area: zone3;
+  .zone_3 {
+    grid-area: zone_3;
   }
 
-  .zone4 {
-    grid-area: zone4;
+  .zone_4 {
+    grid-area: zone_4;
   }
 
   .zone-btn {

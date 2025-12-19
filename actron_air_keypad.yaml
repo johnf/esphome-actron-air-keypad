@@ -410,24 +410,24 @@ binary_sensor:
     inside:
       id: inside
       name: "Inside"
-    zone1:
+    zone_1:
       id: zone_1
       name: "Zone 1"
-    zone2:
+    zone_2:
       id: zone_2
       name: "Zone 2"
-    zone3:
+    zone_3:
       id: zone_3
       name: "Zone 3"
-    zone4:
+    zone_4:
       id: zone_4
       name: "Zone 4"
-    zone5:
+    zone_5:
       id: zone_5
       name: "Zone 5"
-    zone6:
+    zone_6:
       id: zone_6
       name: "Zone 6"
-    zone7:
+    zone_7:
       id: zone_7
       name: "Zone 7"

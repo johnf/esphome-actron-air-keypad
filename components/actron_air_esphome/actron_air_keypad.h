@@ -40,13 +40,13 @@ enum class LedIndex : std::size_t {
   FAN_LOW = 11,
 
   // Zone indicators (1-7)
-  ZONE1 = 21,
-  ZONE2 = 14,
-  ZONE3 = 12,
-  ZONE4 = 13,
-  ZONE5 = 2,
-  ZONE6 = 6,
-  ZONE7 = 5,
+  ZONE_1 = 21,
+  ZONE_2 = 14,
+  ZONE_3 = 12,
+  ZONE_4 = 13,
+  ZONE_5 = 2,
+  ZONE_6 = 6,
+  ZONE_7 = 5,
 
   // Other status indicators
   ROOM = 4,
@@ -113,13 +113,13 @@ public:
   void set_run_sensor(binary_sensor::BinarySensor *s) { run_ = s; }
   void set_timer_sensor(binary_sensor::BinarySensor *s) { timer_ = s; }
   void set_inside_sensor(binary_sensor::BinarySensor *s) { inside_ = s; }
-  void set_zone1_sensor(binary_sensor::BinarySensor *s) { zone1_ = s; }
-  void set_zone2_sensor(binary_sensor::BinarySensor *s) { zone2_ = s; }
-  void set_zone3_sensor(binary_sensor::BinarySensor *s) { zone3_ = s; }
-  void set_zone4_sensor(binary_sensor::BinarySensor *s) { zone4_ = s; }
-  void set_zone5_sensor(binary_sensor::BinarySensor *s) { zone5_ = s; }
-  void set_zone6_sensor(binary_sensor::BinarySensor *s) { zone6_ = s; }
-  void set_zone7_sensor(binary_sensor::BinarySensor *s) { zone7_ = s; }
+  void set_zone_1_sensor(binary_sensor::BinarySensor *s) { zone_1_ = s; }
+  void set_zone_2_sensor(binary_sensor::BinarySensor *s) { zone_2_ = s; }
+  void set_zone_3_sensor(binary_sensor::BinarySensor *s) { zone_3_ = s; }
+  void set_zone_4_sensor(binary_sensor::BinarySensor *s) { zone_4_ = s; }
+  void set_zone_5_sensor(binary_sensor::BinarySensor *s) { zone_5_ = s; }
+  void set_zone_6_sensor(binary_sensor::BinarySensor *s) { zone_6_ = s; }
+  void set_zone_7_sensor(binary_sensor::BinarySensor *s) { zone_7_ = s; }
 
 private:
   static void IRAM_ATTR handle_interrupt(ActronAirKeypad *arg);
@@ -149,13 +149,13 @@ private:
   binary_sensor::BinarySensor *run_{nullptr};
   binary_sensor::BinarySensor *timer_{nullptr};
   binary_sensor::BinarySensor *inside_{nullptr};
-  binary_sensor::BinarySensor *zone1_{nullptr};
-  binary_sensor::BinarySensor *zone2_{nullptr};
-  binary_sensor::BinarySensor *zone3_{nullptr};
-  binary_sensor::BinarySensor *zone4_{nullptr};
-  binary_sensor::BinarySensor *zone5_{nullptr};
-  binary_sensor::BinarySensor *zone6_{nullptr};
-  binary_sensor::BinarySensor *zone7_{nullptr};
+  binary_sensor::BinarySensor *zone_1_{nullptr};
+  binary_sensor::BinarySensor *zone_2_{nullptr};
+  binary_sensor::BinarySensor *zone_3_{nullptr};
+  binary_sensor::BinarySensor *zone_4_{nullptr};
+  binary_sensor::BinarySensor *zone_5_{nullptr};
+  binary_sensor::BinarySensor *zone_6_{nullptr};
+  binary_sensor::BinarySensor *zone_7_{nullptr};
 
   // Protocol state
   std::array<char, NPULSE> pulses_{};

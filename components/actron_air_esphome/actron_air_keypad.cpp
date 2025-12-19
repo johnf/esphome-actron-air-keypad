@@ -208,20 +208,20 @@ void ActronAirKeypad::loop() {
     timer_->publish_state(get_pulse(LedIndex::TIMER));
   if (inside_)
     inside_->publish_state(get_pulse(LedIndex::INSIDE));
-  if (zone1_)
-    zone1_->publish_state(get_pulse(LedIndex::ZONE1));
-  if (zone2_)
-    zone2_->publish_state(get_pulse(LedIndex::ZONE2));
-  if (zone3_)
-    zone3_->publish_state(get_pulse(LedIndex::ZONE3));
-  if (zone4_)
-    zone4_->publish_state(get_pulse(LedIndex::ZONE4));
-  if (zone5_)
-    zone5_->publish_state(get_pulse(LedIndex::ZONE5));
-  if (zone6_)
-    zone6_->publish_state(get_pulse(LedIndex::ZONE6));
-  if (zone7_)
-    zone7_->publish_state(get_pulse(LedIndex::ZONE7));
+  if (zone_1_)
+    zone_1_->publish_state(get_pulse(LedIndex::ZONE_1));
+  if (zone_2_)
+    zone_2_->publish_state(get_pulse(LedIndex::ZONE_2));
+  if (zone_3_)
+    zone_3_->publish_state(get_pulse(LedIndex::ZONE_3));
+  if (zone_4_)
+    zone_4_->publish_state(get_pulse(LedIndex::ZONE_4));
+  if (zone_5_)
+    zone_5_->publish_state(get_pulse(LedIndex::ZONE_5));
+  if (zone_6_)
+    zone_6_->publish_state(get_pulse(LedIndex::ZONE_6));
+  if (zone_7_)
+    zone_7_->publish_state(get_pulse(LedIndex::ZONE_7));
 }
 
 void ActronAirKeypad::dump_config() {

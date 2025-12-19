@@ -136,7 +136,7 @@ The card expects entities with the following naming pattern based on your `entit
 
 ## ESPHome Configuration
 
-See `example_actron_air_keypad.yaml` for complete configuration with all
+See <example_actron_air_keypad.yaml> for complete configuration with all
 sensors and DAC controls.
 
 ```yaml

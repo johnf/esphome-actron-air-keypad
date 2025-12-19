@@ -1,4 +1,5 @@
 """Config flow for Actron Air ESPHome integration."""
+
 from __future__ import annotations
 
 from typing import Any
@@ -33,9 +34,9 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
     entity_prefix = data[CONF_ENTITY_PREFIX]
 
     # Check if the setpoint temperature sensor exists
-    temp_entity = f"sensor.{entity_prefix}_{ENTITY_SUFFIXES['setpoint_temp']}"
-    if temp_entity not in hass.states.async_entity_ids("sensor"):
-        raise EntityNotFoundError(f"Could not find {temp_entity}")
+    # temp_entity = f"sensor.{entity_prefix}_{ENTITY_SUFFIXES['setpoint_temp']}"
+    # if temp_entity not in hass.states.async_entity_ids("sensor"):
+    #    raise EntityNotFoundError(f"Could not find {temp_entity}")
 
     return {"title": f"Actron Air ESPHome ({entity_prefix})"}
 
@@ -84,10 +85,14 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         )
                     ),
                     vol.Optional(CONF_CURRENT_TEMP_SENSOR): selector.EntitySelector(
-                        selector.EntitySelectorConfig(domain="sensor")
+                        selector.EntitySelectorConfig(
+                            domain="sensor", device_class="temperature"
+                        )
                     ),
                     vol.Optional(CONF_HUMIDITY_SENSOR): selector.EntitySelector(
-                        selector.EntitySelectorConfig(domain="sensor")
+                        selector.EntitySelectorConfig(
+                            domain="sensor", device_class="humidity"
+                        )
                     ),
                 }
             ),
@@ -151,10 +156,14 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         )
                     ),
                     vol.Optional(CONF_CURRENT_TEMP_SENSOR): selector.EntitySelector(
-                        selector.EntitySelectorConfig(domain="sensor")
+                        selector.EntitySelectorConfig(
+                            domain="sensor", device_class="temperature"
+                        )
                     ),
                     vol.Optional(CONF_HUMIDITY_SENSOR): selector.EntitySelector(
-                        selector.EntitySelectorConfig(domain="sensor")
+                        selector.EntitySelectorConfig(
+                            domain="sensor", device_class="humidity"
+                        )
                     ),
                 }
             ),
@@ -205,13 +214,17 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                         CONF_CURRENT_TEMP_SENSOR,
                         default=self.config_entry.data.get(CONF_CURRENT_TEMP_SENSOR),
                     ): selector.EntitySelector(
-                        selector.EntitySelectorConfig(domain="sensor")
+                        selector.EntitySelectorConfig(
+                            domain="sensor", device_class="temperature"
+                        )
                     ),
                     vol.Optional(
                         CONF_HUMIDITY_SENSOR,
                         default=self.config_entry.data.get(CONF_HUMIDITY_SENSOR),
                     ): selector.EntitySelector(
-                        selector.EntitySelectorConfig(domain="sensor")
+                        selector.EntitySelectorConfig(
+                            domain="sensor", device_class="humidity"
+                        )
                     ),
                 }
             ),

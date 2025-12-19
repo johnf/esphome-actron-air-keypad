@@ -1,9 +1,9 @@
 # Actron Air ESP32 Keypad Component for ESPHome
 
 An ESPHome external component for reading and decoding pulse trains from the
-Actron Air ESP32 keypad display.
+Actron Air ESP32 keypad display, plus a custom Lovelace card for Home Assistant.
 
-## 🔧 Key Features
+## Key Features
 
 - **Interrupt-driven reading**: Accurate pulse train capture
 - **40-bit decoding**: Full status from keypad display
@@ -11,8 +11,9 @@ Actron Air ESP32 keypad display.
 - **18 binary sensors**: Mode, fan, zones, timers
 - **Error tracking**: Bit count for monitoring reliability
 - **Type-safe config**: ESPHome validation for all settings
+- **Custom Lovelace card**: Retro keypad-style control interface
 
-## 🔌 Hardware Requirements
+## Hardware Requirements
 
 - ESP32 (ESP-IDF framework)
 - GPIO pin for pulse train input
@@ -22,18 +23,118 @@ See the forum thread at
 <https://community.home-assistant.io/t/actron-aircon-esp32-controller-help/609062>
 to build the hardware.
 
-## 🚀 Installation
+## Installation
+
+### HACS (Recommended)
+
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=johnf&repository=esphome_actron_air_keypad&category=plugin)
+Or manually:
+
+1. Open HACS in Home Assistant
+2. Go to "Frontend" section
+3. Click the three dots menu and select "Custom repositories"
+4. Add `https://github.com/johnf/esphome_actron_air_keypad` with category "Lovelace"
+5. Install "Actron Air ESPHome Card"
+6. Restart Home Assistant
+
+### Manual Installation
+
+1. Download `actron-air-esphome-card.js` from the [latest release](https://github.com/johnf/esphome_actron_air_keypad/releases)
+2. Copy to `config/www/actron-air-esphome-card.js`
+3. Add to Lovelace resources (Settings > Dashboards > Resources):
+
+   ```yaml
+   url: /local/actron-air-esphome-card.js
+   type: module
+   ```
+
+4. Restart Home Assistant
+
+### ESPHome External Component
 
 ```yaml
 external_components:
   - source:
       type: git
-      url: https://github.com/johnf/esphome-actron-air-keypad
+      url: https://github.com/johnf/esphome_actron_air_keypad
       ref: main
     components: [actron_air_keypad]
 ```
 
-## 📝 Basic Configuration
+## Lovelace Card Usage
+
+Add the card to your dashboard:
+
+```yaml
+type: custom:actron-air-esphome-card
+entity_prefix: actron_air
+```
+
+### Card Configuration Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `entity_prefix` | string | **required** | Prefix for ESPHome entities (e.g., `actron_air`) |
+| `name` | string | - | Card title (optional) |
+| `show_timer` | boolean | `true` | Show timer controls |
+| `show_zones` | boolean | `true` | Show zone buttons |
+| `zone_count` | number | `4` | Number of zones to display (1-7) |
+| `zones` | array | - | Custom zone names |
+
+### Full Configuration Example
+
+```yaml
+type: custom:actron-air-esphome-card
+entity_prefix: actron_air
+name: Air Conditioning
+show_timer: true
+show_zones: true
+zone_count: 4
+zones:
+  - name: Bedrooms
+  - name: Living Room
+  - name: Kitchen
+  - name: Office
+```
+
+### Expected Entity Names
+
+The card expects entities with the following naming pattern based on your `entity_prefix`:
+
+**Sensors:**
+
+- `sensor.{prefix}_setpoint_temperature`
+
+**Switches:**
+
+- `switch.{prefix}_power`
+- `switch.{prefix}_zone_1` through `switch.{prefix}_zone_7`
+
+**Binary Sensors:**
+
+- `binary_sensor.{prefix}_cool`
+- `binary_sensor.{prefix}_heat`
+- `binary_sensor.{prefix}_auto`
+- `binary_sensor.{prefix}_run`
+- `binary_sensor.{prefix}_fan_low`
+- `binary_sensor.{prefix}_fan_mid`
+- `binary_sensor.{prefix}_fan_high`
+- `binary_sensor.{prefix}_fan_continuous`
+- `binary_sensor.{prefix}_room`
+- `binary_sensor.{prefix}_timer`
+- `binary_sensor.{prefix}_zone_1` through `binary_sensor.{prefix}_zone_7`
+
+**Buttons:**
+
+- `button.{prefix}_mode`
+- `button.{prefix}_fan`
+- `button.{prefix}_temp_up`
+- `button.{prefix}_temp_down`
+- `button.{prefix}_timer`
+- `button.{prefix}_timer_up`
+- `button.{prefix}_timer_down`
+
+## ESPHome Configuration
 
 See `example_actron_air_keypad.yaml` for complete configuration with all
 sensors and DAC controls.
@@ -84,11 +185,11 @@ text_sensor:
       return {"Low"};
 ```
 
-## 📊 Available Sensors
+## Available ESPHome Sensors
 
 ### Numeric Sensors (`sensor` platform)
 
-- `setpoint_temp` - Temperature from 7-segment display (°C)
+- `setpoint_temp` - Temperature from 7-segment display (C)
 - `error_count` - Error counter for monitoring
 
 ### Status Sensors (`binary_sensor` platform)
@@ -126,7 +227,7 @@ There are 4 wires inside the wall unit that connect to the main supply:
 4. The frame is decoded to extract display and LED status
 5. Changes are published to Home Assistant sensors
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### No data received
 
@@ -146,6 +247,12 @@ There are 4 wires inside the wall unit that connect to the main supply:
 - Check all Python files are present
 - Validate YAML indentation
 
+### Card not showing
+
+- Clear browser cache
+- Check browser console for errors
+- Verify the resource is loaded in Settings > Dashboards > Resources
+
 ---
 
 **Need Help?**
@@ -154,13 +261,13 @@ There are 4 wires inside the wall unit that connect to the main supply:
 - Validate config: `esphome config your-device.yaml`
 - Review example.yaml for complete setup
 
-## 📄 License
+## License
 
 MIT License - Feel free to use and modify
 
 ## Thanks
 
-This builds on the work many others:
+This builds on the work of many others:
 
 - <https://community.home-assistant.io/t/actron-aircon-esp32-controller-help/609062>
 - <https://github.com/kursancew/actron-air-wifi>

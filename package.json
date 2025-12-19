@@ -20,13 +20,11 @@
   "author": "John Googin",
   "license": "MIT",
   "scripts": {
-    "start": "rollup -c rollup.config.dev.js --watch",
-    "build": "pnpm run lint && rollup -c && pnpm run copy-card",
     "copy-card": "mkdir -p custom_components/actron_air_esphome/frontend/; mv dist/actron-air-esphome-card.js custom_components/actron_air_esphome/frontend/; rmdir dist",
-    "deploy": "pnpm run build && scp dist/actron-air-esphome-card.js root@homeassistant.local:config/www/actron-air-esphome-card.js",
+    "build": "pnpm run lint && rollup -c && pnpm run copy-card",
     "lint": "biome check src",
     "lint:fix": "biome check --write src",
-    "format": "biome format --write src"
+    "release": "gh workflow run release.yml"
   },
   "dependencies": {
     "custom-card-helpers": "^1.9.0",

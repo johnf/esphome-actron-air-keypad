@@ -43,6 +43,7 @@ jobs:
           npx \
             --package semantic-release \
             --package @semantic-release/commit-analyzer \
+            --package conventional-changelog-conventionalcommits \
             --package @semantic-release/release-notes-generator \
             --package @semantic-release/changelog  \
             --package @semantic-release/github  \

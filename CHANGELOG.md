@@ -1,3 +1,10 @@
+## [0.1.3](https://github.com/johnf/actron-air-esphome/compare/v0.1.2...v0.1.3) (2025-12-24)
+
+### Bug Fixes
+
+* add integration type ([00d6ca0](https://github.com/johnf/actron-air-esphome/commit/00d6ca014bed215584a0997ca12084c9be4959b6))
+* keep manifest.json updated ([5e00df8](https://github.com/johnf/actron-air-esphome/commit/5e00df8b643e7f9c56efc840927adfa06ade6363))
+
 ## [0.1.2](https://github.com/johnf/actron-air-esphome/compare/v0.1.1...v0.1.2) (2025-12-19)
 
 ### Bug Fixes

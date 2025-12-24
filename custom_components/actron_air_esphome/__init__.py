@@ -18,7 +18,7 @@ _LOGGER = logging.getLogger(__name__)
 PLATFORMS: list[Platform] = [Platform.CLIMATE]
 
 # Frontend card registration
-CARD_URL = f"/{DOMAIN}/actron-air-esphome-card.js"
+CARD_URL = f"/local/{DOMAIN}/actron-air-esphome-card.js"
 _FRONTEND_REGISTERED = False
 
 

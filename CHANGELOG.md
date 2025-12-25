@@ -1,3 +1,9 @@
+## [0.1.5](https://github.com/johnf/actron-air-esphome/compare/v0.1.4...v0.1.5) (2025-12-25)
+
+### Bug Fixes
+
+* remove guard around card registratio ([77b58d4](https://github.com/johnf/actron-air-esphome/commit/77b58d4b25da316519c35a5b0eda740676ae8cf2))
+
 ## [0.1.4](https://github.com/johnf/actron-air-esphome/compare/v0.1.3...v0.1.4) (2025-12-24)
 
 ### Bug Fixes

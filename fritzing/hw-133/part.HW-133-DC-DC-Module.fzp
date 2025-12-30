@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module fritzingVersion="1.0.6" moduleId="HW-133-DC-DC-Module_ee319056e2ea11f0a27b047c161e31f0_22">
-  <version>1.0.0</version>
+<module fritzingVersion="1.0.6" moduleId="HW-133-DC-DC-Module_ee319056e2ea11f0a27b047c161e31f0_24">
+  <version>1.0.1</version>
   <author>John Ferlito</author>
   <title>HW-133 DC-DC Module</title>
   <label>U</label>

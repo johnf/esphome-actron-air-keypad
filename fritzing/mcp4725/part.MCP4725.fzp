@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<module fritzingVersion="1.0.6" referenceFile="generic_ic_dip_6_300mil.fzp" moduleId="MCP4725_e7cabbade51011f08e50047c161e31f0_4">
+<module fritzingVersion="1.0.6" referenceFile="generic_ic_dip_6_300mil.fzp" moduleId="MCP4725_e7cabbade51011f08e50047c161e31f0_5">
   <version>1.0.0</version>
   <author>John Ferlito</author>
   <title>MCP4725</title>

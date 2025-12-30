@@ -1,3 +1,13 @@
+## [0.2.0](https://github.com/johnf/actron-air-esphome/compare/v0.1.5...v0.2.0) (2025-12-30)
+
+### Features
+
+* add configurable I2C address for MCP4725 DAC ([30d058b](https://github.com/johnf/actron-air-esphome/commit/30d058b5c171b51b427762f5baf39f31cf121a88))
+
+### Bug Fixes
+
+* fritzing updates ([e09823b](https://github.com/johnf/actron-air-esphome/commit/e09823be74a3d92368da03c37abb4ed10d9de0de))
+
 ## [0.1.5](https://github.com/johnf/actron-air-esphome/compare/v0.1.4...v0.1.5) (2025-12-25)
 
 ### Bug Fixes

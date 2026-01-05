@@ -1,4 +1,5 @@
 """Climate platform for Actron Air ESPHome integration."""
+
 from __future__ import annotations
 
 import asyncio
@@ -44,7 +45,7 @@ from .const import (
 _LOGGER = logging.getLogger(__name__)
 
 # Delay between button presses (ms)
-BUTTON_PRESS_DELAY = 0.5
+BUTTON_PRESS_DELAY = 1.0
 
 
 async def async_setup_entry(
@@ -119,9 +120,7 @@ class ActronAirClimate(ClimateEntity):
         self._attr_preset_modes = self._build_preset_modes()
 
         # Entity IDs for state tracking
-        self._temp_entity = (
-            f"sensor.{entity_prefix}_{ENTITY_SUFFIXES['setpoint_temp']}"
-        )
+        self._temp_entity = f"sensor.{entity_prefix}_{ENTITY_SUFFIXES['setpoint_temp']}"
         self._power_entity = f"switch.{entity_prefix}_{ENTITY_SUFFIXES['power']}"
 
     def _build_preset_modes(self) -> list[str]:
@@ -138,7 +137,9 @@ class ActronAirClimate(ClimateEntity):
         """Get the full entity ID for a given suffix key."""
         return f"{entity_type}.{self._entity_prefix}_{ENTITY_SUFFIXES[suffix_key]}"
 
-    def _get_zone_entity_id(self, zone_num: int, entity_type: str = "binary_sensor") -> str:
+    def _get_zone_entity_id(
+        self, zone_num: int, entity_type: str = "binary_sensor"
+    ) -> str:
         """Get the entity ID for a zone."""
         return f"{entity_type}.{self._entity_prefix}_zone_{zone_num}"
 
@@ -326,9 +327,7 @@ class ActronAirClimate(ClimateEntity):
     async def _set_switch(self, entity_id: str, turn_on: bool) -> None:
         """Set a switch state."""
         service = "turn_on" if turn_on else "turn_off"
-        await self.hass.services.async_call(
-            "switch", service, {"entity_id": entity_id}
-        )
+        await self.hass.services.async_call("switch", service, {"entity_id": entity_id})
 
     async def async_set_temperature(self, **kwargs: Any) -> None:
         """Set new target temperature."""

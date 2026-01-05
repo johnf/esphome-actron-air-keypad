@@ -29,6 +29,7 @@ CONF_ZONE_4 = "zone_4"
 CONF_ZONE_5 = "zone_5"
 CONF_ZONE_6 = "zone_6"
 CONF_ZONE_7 = "zone_7"
+CONF_ZONE_8 = "zone_8"
 
 # Mapping of config keys to C++ setter method names
 SENSOR_MAP: list[tuple[str, str]] = [
@@ -50,6 +51,7 @@ SENSOR_MAP: list[tuple[str, str]] = [
     (CONF_ZONE_5, "set_zone_5_sensor"),
     (CONF_ZONE_6, "set_zone_6_sensor"),
     (CONF_ZONE_7, "set_zone_7_sensor"),
+    (CONF_ZONE_8, "set_zone_8_sensor"),
 ]
 
 CONFIG_SCHEMA = cv.Schema(
@@ -73,6 +75,7 @@ CONFIG_SCHEMA = cv.Schema(
         cv.Optional(CONF_ZONE_5): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_ZONE_6): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_ZONE_7): binary_sensor.binary_sensor_schema(),
+        cv.Optional(CONF_ZONE_8): binary_sensor.binary_sensor_schema(),
     }
 )
 

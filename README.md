@@ -148,7 +148,7 @@ The card expects entities with the following naming pattern based on your `entit
 **Switches:**
 
 - `switch.{prefix}_power`
-- `switch.{prefix}_zone_1` through `switch.{prefix}_zone_7`
+- `switch.{prefix}_zone_1` through `switch.{prefix}_zone_8`
 
 **Binary Sensors:**
 
@@ -162,7 +162,7 @@ The card expects entities with the following naming pattern based on your `entit
 - `binary_sensor.{prefix}_fan_continuous`
 - `binary_sensor.{prefix}_room`
 - `binary_sensor.{prefix}_timer`
-- `binary_sensor.{prefix}_zone_1` through `binary_sensor.{prefix}_zone_7`
+- `binary_sensor.{prefix}_zone_1` through `binary_sensor.{prefix}_zone_8`
 
 **Buttons:**
 
@@ -239,18 +239,17 @@ If you have fewer than 7 zones, you can remove the unused ones:
 packages:
   actron_air: github://johnf/actron-air-esphome/actron_air_keypad.yaml@main
 
-# Remove zones 4-7 for a 3-zone system
+# Remove zones 5-8 for a 4-zone system
 switch:
-  - id: !remove zone_4_switch
   - id: !remove zone_5_switch
   - id: !remove zone_6_switch
   - id: !remove zone_7_switch
+  - id: !remove zone_8_switch
 
-binary_sensor:
-  - id: !remove zone_4
   - id: !remove zone_5
   - id: !remove zone_6
   - id: !remove zone_7
+  - id: !remove zone_8
 ```
 
 ### Manual Configuration (Without Package)
@@ -309,7 +308,7 @@ Configure via Settings > Devices & Services after installing the integration.
 
 - **Mode**: `cool`, `heat`, `auto_mode`, `run`
 - **Fan**: `fan_high`, `fan_mid`, `fan_low`, `fan_cont`
-- **Zones**: `zone_1` through `zone_7`
+- **Zones**: `zone_1` through `zone_8`
 - **Other**: `inside`, `timer`, `room`
 
 ### Debug Sensors (`text_sensor` platform)

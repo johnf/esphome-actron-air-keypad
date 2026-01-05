@@ -24,6 +24,7 @@
 #   voltage_zone_5: "635.0"
 #   voltage_zone_6: "620.0"
 #   voltage_zone_7: "605.0"
+#   voltage_zone_8: "590.0"
 
 packages:
   actron_air: github://johnf/actron-air-esphome/actron_air_keypad.yaml@main
@@ -52,18 +53,17 @@ mdns:
       txt:
         version: "1.0.0"
         name: "esphome-web-aircon"
-
-# Optional: Remove unused zones (example for a 3-zone system)
-# Uncomment the sections below to remove zones 4-7 from Home Assistant
+# Optional: Remove unused zones (example for a 4-zone system)
+# Uncomment the sections below to remove zones 5-8 from Home Assistant
 #
 # switch:
-#   - id: !remove zone_4_switch
 #   - id: !remove zone_5_switch
 #   - id: !remove zone_6_switch
 #   - id: !remove zone_7_switch
+#   - id: !remove zone_8_switch
 #
 # binary_sensor:
-#   - id: !remove zone_4
 #   - id: !remove zone_5
 #   - id: !remove zone_6
 #   - id: !remove zone_7
+#   - id: !remove zone_8

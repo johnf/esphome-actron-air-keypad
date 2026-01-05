@@ -222,6 +222,8 @@ void ActronAirKeypad::loop() {
     zone_6_->publish_state(get_pulse(LedIndex::ZONE_6));
   if (zone_7_)
     zone_7_->publish_state(get_pulse(LedIndex::ZONE_7));
+  if (zone_8_)
+    zone_8_->publish_state(get_pulse(LedIndex::ZONE_8));
 }
 
 void ActronAirKeypad::dump_config() {

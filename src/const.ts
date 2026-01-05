@@ -42,4 +42,5 @@ export const DEFAULT_ZONE_NAMES = [
   'Zone 5',
   'Zone 6',
   'Zone 7',
+  'Zone 8',
 ];

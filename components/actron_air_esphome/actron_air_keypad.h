@@ -47,9 +47,9 @@ enum class LedIndex : std::size_t {
   ZONE_5 = 2,
   ZONE_6 = 6,
   ZONE_7 = 5,
+  ZONE_8 = 4,
 
   // Other status indicators
-  ROOM = 4,
   TIMER = 7,
   INSIDE = 33,
 
@@ -120,6 +120,7 @@ public:
   void set_zone_5_sensor(binary_sensor::BinarySensor *s) { zone_5_ = s; }
   void set_zone_6_sensor(binary_sensor::BinarySensor *s) { zone_6_ = s; }
   void set_zone_7_sensor(binary_sensor::BinarySensor *s) { zone_7_ = s; }
+  void set_zone_8_sensor(binary_sensor::BinarySensor *s) { zone_8_ = s; }
 
 private:
   static void IRAM_ATTR handle_interrupt(ActronAirKeypad *arg);
@@ -156,6 +157,7 @@ private:
   binary_sensor::BinarySensor *zone_5_{nullptr};
   binary_sensor::BinarySensor *zone_6_{nullptr};
   binary_sensor::BinarySensor *zone_7_{nullptr};
+  binary_sensor::BinarySensor *zone_8_{nullptr};
 
   // Protocol state
   std::array<char, NPULSE> pulses_{};

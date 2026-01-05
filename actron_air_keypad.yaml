@@ -35,6 +35,7 @@ substitutions:
   voltage_zone_5: "635.0"
   voltage_zone_6: "620.0"
   voltage_zone_7: "605.0"
+  voltage_zone_8: "590.0"
 
 esp32:
   variant: esp32
@@ -272,6 +273,20 @@ switch:
           id(press_button).press();
     lambda: return id(zone_7).state;
 
+  - platform: template
+    id: zone_8_switch
+    name: "Zone 8"
+    icon: mdi:air-conditioner
+    turn_on_action:
+      - lambda: |-
+          id(dac_value)=${voltage_zone_8};
+          id(press_button).press();
+    turn_off_action:
+      - lambda: |-
+          id(dac_value)=${voltage_zone_8};
+          id(press_button).press();
+    lambda: return id(zone_8).state;
+
 external_components:
   - source: github://johnf/actron-air-esphome
     components: [actron_air_esphome]
@@ -389,3 +404,6 @@ binary_sensor:
     zone_7:
       id: zone_7
       name: "Zone 7"
+    zone_8:
+      id: zone_8
+      name: "Zone 8"

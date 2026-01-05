@@ -35,7 +35,6 @@ ENTITY_SUFFIXES: Final = {
     "fan_mid": "fan_mid",
     "fan_high": "fan_high",
     "fan_cont": "fan_cont",
-    "room": "room",
     "timer": "timer",
     "inside": "inside",
     # Buttons

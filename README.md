@@ -160,7 +160,7 @@ The card expects entities with the following naming pattern based on your `entit
 - `binary_sensor.{prefix}_fan_mid`
 - `binary_sensor.{prefix}_fan_high`
 - `binary_sensor.{prefix}_fan_continuous`
-- `binary_sensor.{prefix}_room`
+- `binary_sensor.{prefix}_inside`
 - `binary_sensor.{prefix}_timer`
 - `binary_sensor.{prefix}_zone_1` through `binary_sensor.{prefix}_zone_8`
 
@@ -309,7 +309,7 @@ Configure via Settings > Devices & Services after installing the integration.
 - **Mode**: `cool`, `heat`, `auto_mode`, `run`
 - **Fan**: `fan_high`, `fan_mid`, `fan_low`, `fan_cont`
 - **Zones**: `zone_1` through `zone_8`
-- **Other**: `inside`, `timer`, `room`
+- **Other**: `inside`, `timer`
 
 ### Debug Sensors (`text_sensor` platform)
 

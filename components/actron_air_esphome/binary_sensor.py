@@ -11,7 +11,6 @@ from . import ActronAirKeypad, CONF_ACTRON_AIR_ESPHOME_ID
 DEPENDENCIES = ["actron_air_esphome"]
 
 # Sensor configuration keys
-CONF_ROOM = "room"
 CONF_FAN_CONT = "fan_cont"
 CONF_FAN_HIGH = "fan_high"
 CONF_FAN_MID = "fan_mid"
@@ -33,7 +32,6 @@ CONF_ZONE_8 = "zone_8"
 
 # Mapping of config keys to C++ setter method names
 SENSOR_MAP: list[tuple[str, str]] = [
-    (CONF_ROOM, "set_room_sensor"),
     (CONF_FAN_CONT, "set_fan_cont_sensor"),
     (CONF_FAN_HIGH, "set_fan_high_sensor"),
     (CONF_FAN_MID, "set_fan_mid_sensor"),
@@ -57,7 +55,6 @@ SENSOR_MAP: list[tuple[str, str]] = [
 CONFIG_SCHEMA = cv.Schema(
     {
         cv.GenerateID(CONF_ACTRON_AIR_ESPHOME_ID): cv.use_id(ActronAirKeypad),
-        cv.Optional(CONF_ROOM): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_FAN_CONT): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_FAN_HIGH): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_FAN_MID): binary_sensor.binary_sensor_schema(),

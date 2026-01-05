@@ -20,7 +20,6 @@ export const ENTITY_SUFFIXES = {
   fanMid: 'fan_mid',
   fanHigh: 'fan_high',
   fanCont: 'fan_cont',
-  room: 'room',
   timer: 'timer',
   inside: 'inside',
 

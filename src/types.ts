@@ -22,7 +22,6 @@ export interface CardState {
   fanContinuous: boolean;
   run: boolean;
   timer: boolean;
-  room: boolean;
   inside: boolean;
   zones: boolean[];
 }

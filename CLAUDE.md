@@ -81,7 +81,7 @@ GPIO Pin → ISR (handle_interrupt) → Main Loop → Publish to Sensors
 
 **Numeric (`sensor` platform):** `setpoint_temp`, `error_count`
 
-**Binary (`binary_sensor` platform):** `cool`, `heat`, `auto_mode`, `run`, `fan_low`, `fan_mid`, `fan_high`, `fan_cont`, `zone_1`-`zone_8`, `room`, `timer`, `inside`
+**Binary (`binary_sensor` platform):** `cool`, `heat`, `auto_mode`, `run`, `fan_low`, `fan_mid`, `fan_high`, `fan_cont`, `zone_1`-`zone_8`, `timer`, `inside`
 
 **Text (`text_sensor` platform):** `bit_string`
 

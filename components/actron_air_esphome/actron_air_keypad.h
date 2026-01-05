@@ -102,7 +102,6 @@ public:
   void set_error_count_sensor(sensor::Sensor *s) { error_count_sensor_ = s; }
   void set_bit_string_sensor(text_sensor::TextSensor *s) { bit_string_ = s; }
 
-  void set_room_sensor(binary_sensor::BinarySensor *s) { room_ = s; }
   void set_fan_cont_sensor(binary_sensor::BinarySensor *s) { fan_cont_ = s; }
   void set_fan_high_sensor(binary_sensor::BinarySensor *s) { fan_high_ = s; }
   void set_fan_mid_sensor(binary_sensor::BinarySensor *s) { fan_mid_ = s; }
@@ -139,7 +138,6 @@ private:
   sensor::Sensor *error_count_sensor_{nullptr};
   text_sensor::TextSensor *bit_string_{nullptr};
 
-  binary_sensor::BinarySensor *room_{nullptr};
   binary_sensor::BinarySensor *fan_cont_{nullptr};
   binary_sensor::BinarySensor *fan_high_{nullptr};
   binary_sensor::BinarySensor *fan_mid_{nullptr};

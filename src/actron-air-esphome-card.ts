@@ -104,7 +104,7 @@ export class ActronAirEsphomeCard extends LitElement {
       `binary_sensor.${prefix}_${ENTITY_SUFFIXES.fanMid}`,
       `binary_sensor.${prefix}_${ENTITY_SUFFIXES.fanHigh}`,
       `binary_sensor.${prefix}_${ENTITY_SUFFIXES.fanCont}`,
-      `binary_sensor.${prefix}_${ENTITY_SUFFIXES.room}`,
+      `binary_sensor.${prefix}_${ENTITY_SUFFIXES.inside}`,
       `binary_sensor.${prefix}_${ENTITY_SUFFIXES.timer}`,
     ];
 
@@ -175,7 +175,6 @@ export class ActronAirEsphomeCard extends LitElement {
       fanContinuous: isOn('binary_sensor', ENTITY_SUFFIXES.fanCont),
       run: isOn('binary_sensor', ENTITY_SUFFIXES.run),
       timer: isOn('binary_sensor', ENTITY_SUFFIXES.timer),
-      room: isOn('binary_sensor', ENTITY_SUFFIXES.room),
       inside: isOn('binary_sensor', ENTITY_SUFFIXES.inside),
       zones,
     };
@@ -205,7 +204,7 @@ export class ActronAirEsphomeCard extends LitElement {
         <div class="lcd-status">
           <span class="${state.power ? 'active' : ''}">ON</span>
           <span class="${!state.power ? 'active' : ''}">OFF</span>
-          <span class="${state.room ? 'active' : ''}">ROOM</span>
+          <span class="${state.inside ? 'active' : ''}">ROOM</span>
         </div>
         <div class="lcd-indicators">
           <span class="${state.fanContinuous ? 'active' : ''}">CONT</span>

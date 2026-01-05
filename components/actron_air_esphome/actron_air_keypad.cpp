@@ -186,8 +186,6 @@ void ActronAirKeypad::loop() {
     error_count_sensor_->publish_state(error_count_);
   }
 
-  if (room_)
-    room_->publish_state(get_pulse(LedIndex::ROOM));
   if (fan_cont_)
     fan_cont_->publish_state(get_pulse(LedIndex::FAN_CONT));
   if (fan_high_)

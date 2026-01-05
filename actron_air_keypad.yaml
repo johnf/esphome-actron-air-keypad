@@ -342,9 +342,6 @@ text_sensor:
 
 binary_sensor:
   - platform: actron_air_esphome
-    room:
-      id: room
-      name: "Room"
     fan_cont:
       id: fan_cont
       name: "Fan Cont"

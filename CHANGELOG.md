@@ -1,3 +1,17 @@
+## [0.3.0](https://github.com/johnf/actron-air-esphome/compare/v0.2.0...v0.3.0) (2026-01-05)
+
+### Features
+
+* add zone 8 support ([dce1e8f](https://github.com/johnf/actron-air-esphome/commit/dce1e8fbe74f22f6da9a83d9fb36bfe20784bad4))
+* working layout with capacitor and diode ([7762ba4](https://github.com/johnf/actron-air-esphome/commit/7762ba4c71e828f54d771d9bce8ffb7c10a974c4))
+
+### Bug Fixes
+
+* add missing http dependency to integration ([7d5bfa0](https://github.com/johnf/actron-air-esphome/commit/7d5bfa0713f3120b3d6403b89caa39cdae667df3))
+* re-order manifest keys alphabetically ([43a3508](https://github.com/johnf/actron-air-esphome/commit/43a35087fdea0e3564a6fb411b4c67c42c0e67cc))
+* updated schematic with capacitor ([374d5d3](https://github.com/johnf/actron-air-esphome/commit/374d5d36a9e797d502ccdd8d46cb85b07980b614))
+* wait longer between button presses on loops ([2cd7f29](https://github.com/johnf/actron-air-esphome/commit/2cd7f295a3b5055ef06eaa1ecc3c7372b87eade0))
+
 ## [0.2.0](https://github.com/johnf/actron-air-esphome/compare/v0.1.5...v0.2.0) (2025-12-30)
 
 ### Features

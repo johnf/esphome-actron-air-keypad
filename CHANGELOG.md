@@ -1,3 +1,9 @@
+## [0.3.1](https://github.com/johnf/actron-air-esphome/compare/v0.3.0...v0.3.1) (2026-01-05)
+
+### Bug Fixes
+
+* remove room sensor ([450c98e](https://github.com/johnf/actron-air-esphome/commit/450c98eeff3fb994ef15b5ad14ea8761a5195c94))
+
 ## [0.3.0](https://github.com/johnf/actron-air-esphome/compare/v0.2.0...v0.3.0) (2026-01-05)
 
 ### Features

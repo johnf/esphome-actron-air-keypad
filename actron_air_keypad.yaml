@@ -70,52 +70,6 @@ globals:
   - id: prev_fan
     type: std::string
     initial_value: '"Unset"'
-  # DAC voltage values for button presses
-  - id: voltage_power
-    type: double
-    initial_value: "${voltage_power}"
-  - id: voltage_fan
-    type: double
-    initial_value: "${voltage_fan}"
-  - id: voltage_mode
-    type: double
-    initial_value: "${voltage_mode}"
-  - id: voltage_temp_up
-    type: double
-    initial_value: "${voltage_temp_up}"
-  - id: voltage_temp_down
-    type: double
-    initial_value: "${voltage_temp_down}"
-  - id: voltage_timer
-    type: double
-    initial_value: "${voltage_timer}"
-  - id: voltage_timer_up
-    type: double
-    initial_value: "${voltage_timer_up}"
-  - id: voltage_timer_down
-    type: double
-    initial_value: "${voltage_timer_down}"
-  - id: voltage_zone_1
-    type: double
-    initial_value: "${voltage_zone_1}"
-  - id: voltage_zone_2
-    type: double
-    initial_value: "${voltage_zone_2}"
-  - id: voltage_zone_3
-    type: double
-    initial_value: "${voltage_zone_3}"
-  - id: voltage_zone_4
-    type: double
-    initial_value: "${voltage_zone_4}"
-  - id: voltage_zone_5
-    type: double
-    initial_value: "${voltage_zone_5}"
-  - id: voltage_zone_6
-    type: double
-    initial_value: "${voltage_zone_6}"
-  - id: voltage_zone_7
-    type: double
-    initial_value: "${voltage_zone_7}"
 
 # DAC output control for testing
 number:
@@ -152,7 +106,7 @@ button:
     icon: mdi:fan
     on_press:
       - lambda: |-
-          id(dac_value)=id(voltage_fan);
+          id(dac_value)=${voltage_fan};
           id(press_button).press();
 
   - platform: template
@@ -160,7 +114,7 @@ button:
     icon: mdi:air-conditioner
     on_press:
       - lambda: |-
-          id(dac_value)=id(voltage_mode);
+          id(dac_value)=${voltage_mode};
           id(press_button).press();
 
   - platform: template
@@ -168,7 +122,7 @@ button:
     icon: mdi:thermometer-plus
     on_press:
       - lambda: |-
-          id(dac_value)=id(voltage_temp_up);
+          id(dac_value)=${voltage_temp_up};
           id(press_button).press();
 
   - platform: template
@@ -176,7 +130,7 @@ button:
     icon: mdi:thermometer-minus
     on_press:
       - lambda: |-
-          id(dac_value)=id(voltage_temp_down);
+          id(dac_value)=${voltage_temp_down};
           id(press_button).press();
 
   - platform: template
@@ -184,7 +138,7 @@ button:
     icon: mdi:timer
     on_press:
       - lambda: |-
-          id(dac_value)=id(voltage_timer);
+          id(dac_value)=${voltage_timer};
           id(press_button).press();
 
   - platform: template
@@ -192,7 +146,7 @@ button:
     icon: mdi:timer-plus
     on_press:
       - lambda: |-
-          id(dac_value)=id(voltage_timer_up);
+          id(dac_value)=${voltage_timer_up};
           id(press_button).press();
 
   - platform: template
@@ -200,7 +154,7 @@ button:
     icon: mdi:timer-minus
     on_press:
       - lambda: |-
-          id(dac_value)=id(voltage_timer_down);
+          id(dac_value)=${voltage_timer_down};
           id(press_button).press();
 
 # Power and zone control switches
@@ -211,11 +165,11 @@ switch:
     name: "Power"
     turn_on_action:
       - lambda: |-
-          id(dac_value)=id(voltage_power);
+          id(dac_value)=${voltage_power};
           id(press_button).press();
     turn_off_action:
       - lambda: |-
-          id(dac_value)=id(voltage_power);
+          id(dac_value)=${voltage_power};
           id(press_button).press();
     lambda: |-
       return (id(cool).state or id(auto_mode).state or id(heat).state or id(fan_cont).state or id(fan_high).state or id(fan_mid).state or id(fan_low).state);
@@ -226,11 +180,11 @@ switch:
     icon: mdi:air-conditioner
     turn_on_action:
       - lambda: |-
-          id(dac_value)=id(voltage_zone_1);
+          id(dac_value)=${voltage_zone_1};
           id(press_button).press();
     turn_off_action:
       - lambda: |-
-          id(dac_value)=id(voltage_zone_1);
+          id(dac_value)=${voltage_zone_1};
           id(press_button).press();
     lambda: return id(zone_1).state;
 
@@ -240,11 +194,11 @@ switch:
     icon: mdi:air-conditioner
     turn_on_action:
       - lambda: |-
-          id(dac_value)=id(voltage_zone_2);
+          id(dac_value)=${voltage_zone_2};
           id(press_button).press();
     turn_off_action:
       - lambda: |-
-          id(dac_value)=id(voltage_zone_2);
+          id(dac_value)=${voltage_zone_2};
           id(press_button).press();
     lambda: return id(zone_2).state;
 
@@ -254,11 +208,11 @@ switch:
     icon: mdi:air-conditioner
     turn_on_action:
       - lambda: |-
-          id(dac_value)=id(voltage_zone_3);
+          id(dac_value)=${voltage_zone_3};
           id(press_button).press();
     turn_off_action:
       - lambda: |-
-          id(dac_value)=id(voltage_zone_3);
+          id(dac_value)=${voltage_zone_3};
           id(press_button).press();
     lambda: return id(zone_3).state;
 
@@ -268,11 +222,11 @@ switch:
     icon: mdi:air-conditioner
     turn_on_action:
       - lambda: |-
-          id(dac_value)=id(voltage_zone_4);
+          id(dac_value)=${voltage_zone_4};
           id(press_button).press();
     turn_off_action:
       - lambda: |-
-          id(dac_value)=id(voltage_zone_4);
+          id(dac_value)=${voltage_zone_4};
           id(press_button).press();
     lambda: return id(zone_4).state;
 
@@ -282,11 +236,11 @@ switch:
     icon: mdi:air-conditioner
     turn_on_action:
       - lambda: |-
-          id(dac_value)=id(voltage_zone_5);
+          id(dac_value)=${voltage_zone_5};
           id(press_button).press();
     turn_off_action:
       - lambda: |-
-          id(dac_value)=id(voltage_zone_5);
+          id(dac_value)=${voltage_zone_5};
           id(press_button).press();
     lambda: return id(zone_5).state;
 
@@ -296,11 +250,11 @@ switch:
     icon: mdi:air-conditioner
     turn_on_action:
       - lambda: |-
-          id(dac_value)=id(voltage_zone_6);
+          id(dac_value)=${voltage_zone_6};
           id(press_button).press();
     turn_off_action:
       - lambda: |-
-          id(dac_value)=id(voltage_zone_6);
+          id(dac_value)=${voltage_zone_6};
           id(press_button).press();
     lambda: return id(zone_6).state;
 
@@ -310,11 +264,11 @@ switch:
     icon: mdi:air-conditioner
     turn_on_action:
       - lambda: |-
-          id(dac_value)=id(voltage_zone_7);
+          id(dac_value)=${voltage_zone_7};
           id(press_button).press();
     turn_off_action:
       - lambda: |-
-          id(dac_value)=id(voltage_zone_7);
+          id(dac_value)=${voltage_zone_7};
           id(press_button).press();
     lambda: return id(zone_7).state;
 
